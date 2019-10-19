@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import './Home.css';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { morphologicalAnalysis } from '../assets/util'
 
@@ -9,6 +9,8 @@ export default function Home() {
     let [ targetMuzzle,setTargetMuzzle ] = useState({
         'text':'えっ',
     });
+  
+  const history = useHistory();
 
     function recordStart() {
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -44,16 +46,12 @@ export default function Home() {
     ):(
         <button onClick={recordStart}>RecordStart</button>
     )
-
+    
     return (
-        <div className="App">
-            <body className="App-body">
-                <a>HomePage</a>
-                <Link to="/result">
-                    <button>ToResult</button>
-                </Link>
-                {recordButton}
-            </body>
-        </div>
+        <body className="App-body">
+            <a>HomePage</a>
+            <button onClick={()=>history.push('/result')}>ToResult</button>
+            {recordButton}
+        </body>
     );
 }
