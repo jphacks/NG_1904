@@ -1,6 +1,7 @@
 import kuromoji from "kuromoji"
 
 const GOO_API_URL = 'https://labs.goo.ne.jp/api/morph'
+const POS_FILTER = ["名詞"]
 
 export function morphologicalAnalysis(text) {
   let promise = new Promise((resolve,reject) => {
@@ -33,12 +34,21 @@ export function wordCount(words) {
   let wc = {}
   for(let word of words) {
     let w = word[0];
+    let t = word[1];
+
+    if(POS_FILTER.indexOf(t) !== -1) continue;
+    
     if(w in wc) {
-      wc[w] += 1
+      wc[w]["count"] += 1
     } else {
-      wc[w] = 1
+      wc[w] = {
+        "count":1,
+        "type":t
+      }
     }
   }
+
+  console.log(wc)
 
   let wordCount = []
 
@@ -46,15 +56,16 @@ export function wordCount(words) {
   for(let [key,value] of Object.entries(wc)) {
     wordCount.push({
       "str": key,
-      "count":value,
+      "count":value["count"],
+      "type":value["type"],
       "location":null,
       "date":null
     })
   }
 
   wordCount.sort((a,b) => {
-    if(a["count"] > b["count"]) return 1
-    else if (a["count"] > b["count"]) return -1
+    if(a["count"] > b["count"]) return -1
+    else if (a["count"] < b["count"]) return 1
     return 0
   })
 
