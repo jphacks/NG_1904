@@ -1,7 +1,8 @@
 import React,{ useState } from 'react';
 import './Home.css';
 import { useHistory } from 'react-router-dom';
-
+import MIC from '../assets/img/mic.png';
+import TALK from '../assets/img/talk.png';
 import { morphologicalAnalysis,vibrate } from '../assets/util'
 
 export default function Home() {
@@ -22,7 +23,7 @@ export default function Home() {
         recognition.continuous = true;
         recognition.lang = "ja-JP";
         setIsRecording(true)
-    
+
         // recognition.onerror = function(event){
         // }
 
@@ -47,18 +48,19 @@ export default function Home() {
         recognition.abort();
         setIsRecording(false);
     }
-    
+
     let recordButton = ( isRecording )? (
-        <button onClick={recordStop}>RecordStop</button>
+        <button onClick={recordStop} className="App-body_reco-stop">録音終了</button>
     ):(
-        <button onClick={recordStart}>RecordStart</button>
+        <button onClick={recordStart} className="App-body_reco-start"><img src={MIC} alt="マイク"/>会話を録音</button>
     )
-    
+
     return (
         <body className="App-body">
-            <a>HomePage</a>
+            <h2 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">口グセ</span>」<br></br>を直そう</h2>
             <button onClick={()=>history.push('/result')}>ToResult</button>
             {recordButton}
+            <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>
         </body>
     );
 }

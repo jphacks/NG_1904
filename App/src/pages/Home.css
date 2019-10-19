@@ -7,11 +7,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    color: #4f4f4f;
+    padding-top: 2rem;
 }
+
 .App-text {
     color: #ffffff;
-    
 }
 
 .App-button {
@@ -22,7 +24,7 @@
 
 .App-image {
     border-radius: 10%;
-    width:  30%;
+    width: 30%;
     background-color: #ffffff;
 }
 
@@ -34,4 +36,55 @@
 
 .App-footer-div {
     font-size: 5pt;
+}
+
+/* Record画面のタイトル */
+
+.App-body_reco-header {
+    font-size: 2.75rem;
+    text-align: center;
+    line-height: 3.5rem;
+    font-weight: bold;
+}
+
+.App-body_reco-header-muzzle {
+    font-size:3rem;
+    background: linear-gradient(transparent 50%, #FBC438 50%);
+}
+
+/* Record画面のボタン */
+
+.App-body_reco-start, .App-body_reco-stop {
+    font-weight: bold;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    border: 18px solid;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2), 0px 1px 18px rgba(0, 0, 0, 0.12), 0px 6px 10px rgba(0, 0, 0, 0.14);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.App-body_reco-start img, .App-body_reco-stop img {
+    width: 1.75rem;
+}
+
+.App-body_reco-start {
+    color: #fbc438;
+    background-color: #ffffff;
+    border-color: #FBC438;
+}
+
+.App-body_reco-stop {
+    color: #ffffff;
+    background-color: #FBC438;
+    border-color: #ffffff;
+}
+
+.App-body_reco-img {
+    position: absolute;
+    bottom: 0;
 }
