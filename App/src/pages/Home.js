@@ -1,17 +1,29 @@
-import React,{ useState, useEffect } from 'react';
+import React,{ useState, useEffect, useCallback } from 'react';
 import './Home.css';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { morphologicalAnalysis, vibrate, gooAPIClient, wordCount } from '../assets/util';
 
 export default function Home() {
-    let [ isRecording,setIsRecording ] = useState(false);
-    let [ recognition,setRecognition ] = useState(null)
-    let [ targetMuzzle,setTargetMuzzle ] = useState({'text':'えっ',});
+    const [ isRecording,setIsRecording ] = useState(false);
+    const [ recognition,setRecognition ] = useState(null)
+    const [ targetMuzzle,setTargetMuzzle ] = useState({'text':'えっ'});
 
-    let [data, setData] = useState("");
+    const [data, setData] = useState("");
 
+    function wrapSetData(text) { 
+        setData(data + text)
+        // useMemo((wrapdata) => setData(wrapdata),[]);
+    };
+
+    // const wrapSetData = useMemo(() => {})
+
+    const memoizedValue = useCallback((text) => {
+        wrapSetData(text)
+    },[data,wrapSetData])
+    
     useEffect(() => {
+        console.log("Hey");
         if(isRecording){
             window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             let recognition = new window.SpeechRecognition();
@@ -21,12 +33,11 @@ export default function Home() {
             recognition.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
 
-                if(text.indexOf('こんにちは')!=-1){
+                if(text.indexOf(targetMuzzle) != -1){
                     vibrate();
                 }
                 console.log(text)
-                setData(data + text);
-                console.log(data)
+                memoizedValue(text);
             }
 
             recognition.start();
@@ -38,11 +49,19 @@ export default function Home() {
                 recognition.abort();
             };
         }
-    },[isRecording,data]);
-    
+    },[isRecording, memoizedValue]);
 
     const location = useLocation();    
     const history = useHistory();
+
+    useEffect(() => {
+        if(location.state) {
+            setTargetMuzzle(location.state.str);
+        } else {
+            setTargetMuzzle("こんにちは");
+        }
+    },[location.state])
+
 
     function recordStart() {
         setIsRecording(true);
