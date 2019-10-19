@@ -36,7 +36,6 @@ export default function Home() {
                     vibrate();
                     memoryIndex += text.length - 1;
                 }
-                
             }
             
             recognition.onend = (event) => {
@@ -61,9 +60,9 @@ export default function Home() {
 
     useEffect(() => {
         if(location.state) {
-            setTargetMuzzle(location.state.str);
+            setTargetMuzzle({"text": location.state.str});
         } else {
-            setTargetMuzzle("こんにちは");
+            setTargetMuzzle({"text":"口ぐせ"});
         }
     },[location.state])
 
@@ -74,11 +73,10 @@ export default function Home() {
 
     async function recordStop() {
         setIsRecording(false);
-        if(data != "") {
-            let tokens = await gooAPIClient(data);
-            let wc = wordCount(tokens["word_list"][0]);
-            history.push({pathname:'/result',state:{ countedWords: wc }})
-        }
+        let tokens = await gooAPIClient(data);
+        let wc = wordCount(tokens["word_list"][0]);
+        console.log(wc);
+        history.push({pathname:'/result',state:{ countedWords: wc }})
     } 
 
     let recordButton = ( isRecording )? (
@@ -89,7 +87,7 @@ export default function Home() {
 
     return (
         <div className="App-body">
-            <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">口グセ</span>」<br></br>を直そう</h1>
+            <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle.text}</span>」<br></br>を直そう</h1>
             {recordButton}
             <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>
         </div>
