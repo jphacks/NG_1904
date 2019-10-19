@@ -1,8 +1,11 @@
 import React,{ useState, useEffect, useCallback } from 'react';
 import './Home.css';
 import { useHistory, useLocation } from 'react-router-dom';
-
 import { morphologicalAnalysis, vibrate, gooAPIClient, wordCount } from '../assets/util';
+
+import MIC from '../assets/img/mic.png';
+import TALK from '../assets/img/talk.png';
+import STOP from '../assets/img/stop.png';
 
 export default function Home() {
     const [ isRecording,setIsRecording ] = useState(false);
@@ -75,23 +78,18 @@ export default function Home() {
         history.push({pathname:'/result',state:{ countedWords: wc }})
     } 
 
-    let showMuzzleResult = ( location.state )? (
-        <a>{location.state.str}を治そう</a>
-    ):(
-        <a>えっとを治そう</a>
-    )
-    
     let recordButton = ( isRecording )? (
-        <button onClick={recordStop}>RecordStop</button>
+        <button onClick={recordStop} className="App-body_reco-stop"><img src={STOP} alt="停止"/>録音終了</button>
     ):(
-        <button onClick={recordStart}>RecordStart</button>
+        <button onClick={recordStart} className="App-body_reco-start"><img src={MIC} alt="マイク"/>会話を録音</button>
     )
-    
+
     return (
-        <body className="App-body">
-            <a>HomePage</a>
-            {showMuzzleResult}
+        <div className="App-body">
+            <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">口グセ</span>」<br></br>を直そう</h1>
+            <button onClick={()=>history.push('/result')}>ToResult</button>
             {recordButton}
-        </body>
+            <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>
+        </div>
     );
 }

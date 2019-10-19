@@ -1,12 +1,92 @@
+.List-body {
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.App-body_rank-list {
+    z-index: 1;
+    width: 90vw;
+    margin: 0 auto;
+}
 
 .List {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding: 0;
+}
+
+.List li {
+    list-style: none;
 }
 
 .List-item {
-    height: 500;
-    width: 500;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 0.6rem 1rem;
+    margin: 0.4rem 0;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0px 6px 10px rgba(5, 2, 2, 0.14);
 }
+
+.List-item:nth-child(1){
+    padding: 1.5rem 1rem;
+}
+
+.List-item_muzzle-word {
+    margin-left: 1.5rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.List-item_muzzle-count {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    position: absolute;
+    right: 3rem;
+}
+
+.List-item_muzzle-count-txt {
+    font-size: 0.75rem;
+    margin-left: 0.1rem;
+}
+
+.App-body_rank-head {
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem auto;
+    z-index: 1;
+    color: #fff;
+}
+
+.App-body_rank-head img {
+    height: 8rem;
+    width: 3.5rem;
+}
+
+.App-body_rank-header {
+    text-align: center;
+    line-height: 2.75rem;
+}
+
+.App-body_rank-header-top {
+    font-size: 2.75rem;
+    letter-spacing: 0.25rem;
+}
+
+
+/* .background-circle {
+    position: absolute;
+    left: -222px;
+    top: -374px;
+    border-radius: 50%;
+    z-index: 0;
+    background: #FBC438;
+    width: 700px;
+    height: 700px;
+} */
