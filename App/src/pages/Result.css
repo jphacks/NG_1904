@@ -1,26 +1,63 @@
+.App-body_rank-list {
+    z-index: 1;
+    width: 80vw;
+    margin: 0 auto;
+}
 
 .List {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding: 0;
+}
+
+.List li {
+    list-style: none;
 }
 
 .List-item {
-    height: 500;
-    width: 500;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 0.75rem 1rem;
+    margin: 0.25rem 0;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2), 0px 1px 18px rgba(0, 0, 0, 0.12), 0px 6px 10px rgba(5, 2, 2, 0.14);
 }
 
 .App-body_rank-head {
     display: flex;
     justify-content: center;
-    margin: 4rem auto;
+    margin: 2rem auto;
+    z-index: 1;
+    color: #fff;
+}
+
+.App-body_rank-head img {
+    height: 8rem;
+    width: 3.5rem;
 }
 
 .App-body_rank-header {
     text-align: center;
+    line-height: 2.75rem;
 }
 
 .App-body_rank-header-top {
     font-size: 3rem;
+    letter-spacing: 0.25rem;
+}
+
+.background-circle {
+    position: absolute;
+    left: -222px;
+    top: -374px;
+    border-radius: 50%;
+    z-index: 0;
+    background: #FBC438;
+    width: 700px;
+    height: 700px;
 }
