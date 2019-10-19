@@ -10,6 +10,7 @@ export default function Home() {
     let [ targetMuzzle,setTargetMuzzle ] = useState({
         'text':'えっ',
     });
+
     let [data, setData] = useState("");
 
     useEffect(() => {
@@ -31,6 +32,7 @@ export default function Home() {
             setRecognition(recognition);
         }
 
+
         return function cleanup() {
             //recognition.abort();
         };
@@ -48,12 +50,6 @@ export default function Home() {
     function recordStop() {
         recognition.abort();
         setIsRecording(false);
-    }
-
-    function test () {
-        let data_copy =  Object.create(data);
-        data_copy.push("#");
-        setData(data_copy);
     }
 
     let showMuzzleResult = ( location.state )? (
