@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useCallback } from 'react';
+import React,{ useState, useEffect, useReducer } from 'react';
 import './Home.css';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -9,18 +9,7 @@ export default function Home() {
     const [ recognition,setRecognition ] = useState(null)
     const [ targetMuzzle,setTargetMuzzle ] = useState({'text':'えっ'});
 
-    const [data, setData] = useState("");
-
-    function wrapSetData(text) { 
-        setData(data + text)
-        // useMemo((wrapdata) => setData(wrapdata),[]);
-    };
-
-    // const wrapSetData = useMemo(() => {})
-
-    const memoizedValue = useCallback((text) => {
-        wrapSetData(text)
-    },[data,wrapSetData])
+    const [data, dispatcher] = useReducer((prevData,text) => prevData + text ,"");
     
     useEffect(() => {
         console.log("Hey");
@@ -36,8 +25,13 @@ export default function Home() {
                 if(text.indexOf(targetMuzzle) != -1){
                     vibrate();
                 }
-                console.log(text)
-                memoizedValue(text);
+                console.log(text);
+                dispatcher(text);
+            }
+
+            recognition.onend = (event) => {
+                //recognition.stop();
+                recognition.start();
             }
 
             recognition.start();
@@ -46,10 +40,11 @@ export default function Home() {
 
         return () => {
             if(recognition != null) {
-                recognition.abort();
+                //recognition.abort();
+                recognition.stop();
             };
         }
-    },[isRecording, memoizedValue]);
+    },[isRecording, dispatcher]);
 
     const location = useLocation();    
     const history = useHistory();
