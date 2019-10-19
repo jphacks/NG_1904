@@ -59,7 +59,7 @@ export default function Home() {
     return (
         <body className="App-body">
             <h2 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">口グセ</span>」<br></br>を直そう</h2>
-            <button onClick={()=>history.push('/result')}>ToResult</button>
+            {/* <button onClick={()=>history.push('/result')}>ToResult</button> */}
             {recordButton}
             <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>
         </body>

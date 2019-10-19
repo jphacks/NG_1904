@@ -47,13 +47,14 @@ button:focus {
 .App-body_reco-header {
     font-size: 2.75rem;
     text-align: center;
-    line-height: 3.25rem;
+    line-height: 3.75rem;
     font-weight: bold;
+    margin-bottom: 1.75rem;
 }
 
 .App-body_reco-header-muzzle {
     font-size:3rem;
-    background: linear-gradient(transparent 70%, #FBC438 30%);
+    background: linear-gradient(transparent 60%, #FBC438 40%);
 }
 
 /* Record画面のボタン */
@@ -91,4 +92,5 @@ button:focus {
 .App-body_reco-img {
     position: absolute;
     bottom: 0;
+    width: 20rem;
 }
