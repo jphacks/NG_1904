@@ -69,5 +69,5 @@ export function wordCount(words) {
     return 0
   })
 
-  return wordCount
+  return wordCount.slice(0,5);
 }
