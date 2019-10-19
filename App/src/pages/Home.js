@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import './Home.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { morphologicalAnalysis } from '../assets/util'
 
@@ -9,8 +9,10 @@ export default function Home() {
     let [ targetMuzzle,setTargetMuzzle ] = useState({
         'text':'えっ',
     });
-  
-  const history = useHistory();
+    //const [ muzzleResult, setMuzzleResult ] = useState(null);
+
+    const location = useLocation();
+    const history = useHistory();
 
     function recordStart() {
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -27,7 +29,7 @@ export default function Home() {
             let text = event.results[event.results.length-1][0].transcript;
             let tokens = await morphologicalAnalysis(text);
             for(let token of tokens) {
-                if(token['surface_form'] == targetMuzzle['text']) {
+                if(token['surface_form'] === targetMuzzle['text']) {
                     // ここにバイブレーションの動作を追加
                 }
             }
@@ -40,6 +42,12 @@ export default function Home() {
         recognition.stop();
         setRecognition(null);
     }
+
+    let showMuzzleResult = ( location.state )? (
+        <a>{location.state.str}を治そう</a>
+    ):(
+        <a>えっとを治そう</a>
+    )
     
     let recordButton = ( recognition )? (
         <button onClick={recordStop}>RecordStop</button>
@@ -50,6 +58,7 @@ export default function Home() {
     return (
         <body className="App-body">
             <a>HomePage</a>
+            {showMuzzleResult}
             <button onClick={()=>history.push('/result')}>ToResult</button>
             {recordButton}
         </body>
