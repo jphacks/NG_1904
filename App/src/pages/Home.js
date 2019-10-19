@@ -2,16 +2,14 @@ import React,{ useState, useEffect } from 'react';
 import './Home.css';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { morphologicalAnalysis,vibrate,gooAPIClient,wordCount } from '../assets/util'
+import { morphologicalAnalysis, vibrate, gooAPIClient, wordCount } from '../assets/util';
 
 export default function Home() {
     let [ isRecording,setIsRecording ] = useState(false);
     let [ recognition,setRecognition ] = useState(null)
-    let [ targetMuzzle,setTargetMuzzle ] = useState({
-        'text':'えっ',
-    });
+    let [ targetMuzzle,setTargetMuzzle ] = useState({'text':'えっ',});
 
-    let [data, setData] = useState("明日はいい天気になるよね");
+    let [data, setData] = useState("");
 
     useEffect(() => {
         if(isRecording){
@@ -22,9 +20,12 @@ export default function Home() {
 
             recognition.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
+
+                if(text.indexOf('こんにちは')!=-1){
+                    vibrate();
+                }
                 console.log(text)
                 setData(data + text);
-
                 console.log(data)
             }
 
@@ -32,17 +33,15 @@ export default function Home() {
             setRecognition(recognition);
         }
 
-
         return () => {
             if(recognition != null) {
                 recognition.abort();
-            }
-        };
+            };
+        }
     },[isRecording,data]);
     
 
     const location = useLocation();    
-    
     const history = useHistory();
 
     function recordStart() {
