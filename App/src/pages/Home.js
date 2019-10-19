@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from 'react';
 import './Home.css';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { morphologicalAnalysis,vibrate } from '../assets/util'
+import { morphologicalAnalysis,vibrate,gooAPIClient,wordCount } from '../assets/util'
 
 export default function Home() {
     let [ isRecording,setIsRecording ] = useState(false);
@@ -11,7 +11,7 @@ export default function Home() {
         'text':'えっ',
     });
 
-    let [data, setData] = useState("");
+    let [data, setData] = useState("明日はいい天気になるよね");
 
     useEffect(() => {
         if(isRecording){
@@ -33,8 +33,10 @@ export default function Home() {
         }
 
 
-        return function cleanup() {
-            //recognition.abort();
+        return () => {
+            if(recognition != null) {
+                recognition.abort();
+            }
         };
     },[isRecording,data]);
     
@@ -47,10 +49,13 @@ export default function Home() {
         setIsRecording(true);
     }
 
-    function recordStop() {
-        recognition.abort();
+    async function recordStop() {
         setIsRecording(false);
-    }
+        let tokens = await gooAPIClient(data);
+        let wc = wordCount(tokens["word_list"][0]);
+        console.log(wc);
+        history.push({pathname:'/result',state:{ countedWords: wc }})
+    } 
 
     let showMuzzleResult = ( location.state )? (
         <a>{location.state.str}を治そう</a>
@@ -68,7 +73,6 @@ export default function Home() {
         <body className="App-body">
             <a>HomePage</a>
             {showMuzzleResult}
-            <button onClick={()=>history.push({pathname:'/result',state:{ countedWords: data }})}>ToResult</button>
             {recordButton}
         </body>
     );

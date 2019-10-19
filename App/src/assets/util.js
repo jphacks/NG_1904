@@ -17,7 +17,6 @@ export function vibrate() {
 } 
 
 export function gooAPIClient(text) {
-  console.log(process.env.REACT_APP_GOO_API_TOKEN)
   return fetch(GOO_API_URL,{
     method: 'POST',
     headers: {
@@ -28,4 +27,36 @@ export function gooAPIClient(text) {
       sentence:text
     }), 
   }).then(response => response.json());
+}
+
+export function wordCount(words) {
+  let wc = {}
+  for(let word of words) {
+    let w = word[0];
+    if(w in wc) {
+      wc[w] += 1
+    } else {
+      wc[w] = 1
+    }
+  }
+
+  let wordCount = []
+
+  // Fixme データの持ちかえを修正
+  for(let [key,value] of Object.entries(wc)) {
+    wordCount.push({
+      "str": key,
+      "count":value,
+      "location":null,
+      "date":null
+    })
+  }
+
+  wordCount.sort((a,b) => {
+    if(a["count"] > b["count"]) return 1
+    else if (a["count"] > b["count"]) return -1
+    return 0
+  })
+
+  return wordCount
 }
