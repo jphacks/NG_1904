@@ -1,6 +1,6 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import './Home.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { morphologicalAnalysis,vibrate } from '../assets/util'
 
@@ -10,43 +10,53 @@ export default function Home() {
     let [ targetMuzzle,setTargetMuzzle ] = useState({
         'text':'えっ',
     });
-    let [ wordList,setWordList ] = useState({
-        words:[]
-    })
 
+    let [data, setData] = useState("");
+
+    useEffect(() => {
+        if(isRecording){
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            let recognition = new window.SpeechRecognition();
+            recognition.continuous = true;
+            recognition.lang = "ja-JP";
+
+            recognition.onresult = (event) =>  {
+                let text = event.results[event.results.length-1][0].transcript;
+                console.log(text)
+                setData(data + text);
+
+                console.log(data)
+            }
+
+            recognition.start();
+            setRecognition(recognition);
+        }
+
+
+        return function cleanup() {
+            //recognition.abort();
+        };
+    },[isRecording,data]);
+    
+
+    const location = useLocation();    
+    
     const history = useHistory();
 
     function recordStart() {
-        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        let recognition = new window.SpeechRecognition();
-        recognition.continuous = true;
-        recognition.lang = "ja-JP";
-        setIsRecording(true)
-    
-        // recognition.onerror = function(event){
-        // }
-
-        recognition.onresult = async function(event)  {
-            let text = event.results[event.results.length-1][0].transcript;
-            await vibrate();
-            let tokens = await morphologicalAnalysis(text);
-            for(let token of tokens) {
-                console.log(token)
-                wordList['words'].push(token['surface_form'])
-                if(token['surface_form'] == targetMuzzle['text']) {
-                    vibrate();
-                }
-            }
-
-        }
-        recognition.start();
-        setRecognition(recognition);
+        setIsRecording(true);
     }
 
     function recordStop() {
         recognition.abort();
         setIsRecording(false);
     }
+
+    let showMuzzleResult = ( location.state )? (
+        <a>{location.state.str}を治そう</a>
+    ):(
+        <a>えっとを治そう</a>
+    )
     
     let recordButton = ( isRecording )? (
         <button onClick={recordStop}>RecordStop</button>
@@ -57,7 +67,8 @@ export default function Home() {
     return (
         <body className="App-body">
             <a>HomePage</a>
-            <button onClick={()=>history.push('/result')}>ToResult</button>
+            {showMuzzleResult}
+            <button onClick={()=>history.push({pathname:'/result',state:{ countedWords: data }})}>ToResult</button>
             {recordButton}
         </body>
     );
