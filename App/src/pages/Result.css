@@ -11,6 +11,16 @@
     width: 500;
 }
 
+.App-body_rank-head {
+    display: flex;
+    justify-content: center;
+    margin: 4rem auto;
+}
+
 .App-body_rank-header {
     text-align: center;
+}
+
+.App-body_rank-header-top {
+    font-size: 3rem;
 }

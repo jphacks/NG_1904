@@ -2,6 +2,8 @@ import React from 'react';
 import './Result.css';
 import { useHistory } from 'react-router-dom';
 import testData from './test.json';
+import LEFT from '../assets/img/left-accessory.png';
+import RIGHT from '../assets/img/right-accessory.png';
 
 export default function Result() {
     const history = useHistory();
@@ -14,15 +16,17 @@ export default function Result() {
     );
 
     return (
-        <>
-            <header>
-                <h1 className="App-body_rank-header"><span>あなたの口グセ</span><br></br>TOP5</h1>
+        <div className="App-body">
+            <header className="App-body_rank-head">
+                <img src={LEFT} alt="左の装飾"/>
+                <h1 className="App-body_rank-header">あなたの口グセ<br></br><span className="App-body_rank-header-top">TOP5</span></h1>
+                <img src={RIGHT} alt="右の装飾"/>
             </header>
             <div>
                 <div>
                     <ol className="List">{listItems}</ol>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
