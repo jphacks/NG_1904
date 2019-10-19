@@ -67,11 +67,10 @@ export default function Home() {
 
     async function recordStop() {
         setIsRecording(false);
-        if(data != "") {
-            let tokens = await gooAPIClient(data);
-            let wc = wordCount(tokens["word_list"][0]);
-            history.push({pathname:'/result',state:{ countedWords: wc }})
-        }
+        let tokens = await gooAPIClient(data);
+        let wc = wordCount(tokens["word_list"][0]);
+        console.log(wc);
+        history.push({pathname:'/result',state:{ countedWords: wc }})
     } 
 
     let recordButton = ( isRecording )? (
