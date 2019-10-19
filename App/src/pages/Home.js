@@ -22,20 +22,24 @@ export default function Home() {
             recognition.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
                 let tokens = morphologicalAnalysis(text).then(tokens => {
+                    let data_add = [];
+
                     for(let token of tokens) {
                         if(token['surface_form'] === targetMuzzle['text']) {
                             // ここにバイブレーションの動作を追加
-                            vibrate()
+                            vibrate();
                         }
-                        let data_copy =  Object.create(data);
-                        data_copy.push(token['surface_form']);
+                        data_add.push(token['surface_form']);
                         //console.log(setData,token['surface_form'])
-                        data_copy.push(token['surface_form']);
+                        //data_copy.push(token['surface_form']);
                         //window.confirm(token['surface_form']);
                         //countedWords.push(token['surface_form']);
-                        setData(data_copy);
                         console.log(data);
                     }
+                    let data_add2 =  Object.create(data);
+                    let data_copy = data_add.concat(data_add2);
+                    setData(data_copy);
+                    console.log(data_copy);
                 });
             }
             recognition.start();
