@@ -11,7 +11,7 @@ export default function recordAudio () {
 
     recognition.onresult = function(event){
         if(0 < event.results.length){
-            window.alert( vent.results[0][0].transcript);
+            window.alert(event.results[0][0].transcript);
         }
     }
     
