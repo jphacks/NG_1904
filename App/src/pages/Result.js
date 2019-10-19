@@ -8,15 +8,15 @@ export default function Result() {
 
     const listItems = testData.map((data, index) =>
             <li key={index} className="List-item" onClick={()=>history.push('/home')}>
-                {data.str}{" ： "}{data.count}
-                <button >LOG</button>
+                {data.str}{" ： "}{data.count}<span>{"回"}</span>
+                {/* <button >LOG</button> */}
             </li>
     );
 
     return (
         <>
             <header>
-                <h1>ResultPage</h1>
+                <h1 className="App-body_rank-header"><span>あなたの口グセ</span><br></br>TOP5</h1>
             </header>
             <div>
                 <div>
