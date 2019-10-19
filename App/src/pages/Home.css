@@ -1,3 +1,7 @@
+button:focus {
+    outline:0;
+}
+
 .App {
     background-color: #282c34;
 }
@@ -43,13 +47,13 @@
 .App-body_reco-header {
     font-size: 2.75rem;
     text-align: center;
-    line-height: 3.5rem;
+    line-height: 3.25rem;
     font-weight: bold;
 }
 
 .App-body_reco-header-muzzle {
     font-size:3rem;
-    background: linear-gradient(transparent 50%, #FBC438 50%);
+    background: linear-gradient(transparent 70%, #FBC438 30%);
 }
 
 /* Record画面のボタン */
