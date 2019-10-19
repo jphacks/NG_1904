@@ -48,8 +48,6 @@ export function wordCount(words) {
     }
   }
 
-  console.log(wc)
-
   let wordCount = []
 
   // Fixme データの持ちかえを修正
