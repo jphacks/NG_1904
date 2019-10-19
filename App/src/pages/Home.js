@@ -1,7 +1,6 @@
 import React,{ useState } from 'react';
 import './Home.css';
 import { useHistory, useLocation } from 'react-router-dom';
-
 import { morphologicalAnalysis } from '../assets/util'
 
 export default function Home() {
@@ -9,10 +8,11 @@ export default function Home() {
     let [ targetMuzzle,setTargetMuzzle ] = useState({
         'text':'えっ',
     });
-    //const [ muzzleResult, setMuzzleResult ] = useState(null);
+    const [data, setData] = useState([]);
 
     const location = useLocation();
     const history = useHistory();
+    
 
     function recordStart() {
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -25,15 +25,21 @@ export default function Home() {
             window.alert(event.error);
         }
     
-        recognition.onresult = async function(event){
+        recognition.onresult = async function (event) {
             let text = event.results[event.results.length-1][0].transcript;
             let tokens = await morphologicalAnalysis(text);
             for(let token of tokens) {
                 if(token['surface_form'] === targetMuzzle['text']) {
                     // ここにバイブレーションの動作を追加
                 }
-            }
+                let data_copy =  Object.create(data);
+                data_copy.push(token['surface_form']);
+                setData(data_copy);
 
+                //window.confirm(token['surface_form']);
+                //countedWords.push(token['surface_form']);
+                console.log(data);
+            }
         }
         recognition.start();
     }
@@ -41,6 +47,12 @@ export default function Home() {
     function recordStop() {
         recognition.stop();
         setRecognition(null);
+    }
+
+    function test () {
+        let data_copy =  Object.create(data);
+        data_copy.push("#");
+        setData(data_copy);
     }
 
     let showMuzzleResult = ( location.state )? (
@@ -59,7 +71,7 @@ export default function Home() {
         <body className="App-body">
             <a>HomePage</a>
             {showMuzzleResult}
-            <button onClick={()=>history.push('/result')}>ToResult</button>
+            <button onClick={()=>history.push({pathname:'/result',state:{ countedWords: data }})}>ToResult</button>
             {recordButton}
         </body>
     );
