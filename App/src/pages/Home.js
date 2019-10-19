@@ -3,6 +3,7 @@ import './Home.css';
 import { useHistory } from 'react-router-dom';
 import MIC from '../assets/img/mic.png';
 import TALK from '../assets/img/talk.png';
+import STOP from '../assets/img/stop.png';
 import { morphologicalAnalysis,vibrate } from '../assets/util'
 
 export default function Home() {
@@ -50,7 +51,7 @@ export default function Home() {
     }
 
     let recordButton = ( isRecording )? (
-        <button onClick={recordStop} className="App-body_reco-stop">録音終了</button>
+        <button onClick={recordStop} className="App-body_reco-stop"><img src={STOP} alt="停止"/>録音終了</button>
     ):(
         <button onClick={recordStart} className="App-body_reco-start"><img src={MIC} alt="マイク"/>会話を録音</button>
     )
