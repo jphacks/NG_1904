@@ -19,21 +19,23 @@ export default function Home() {
         if(isRecording){
             window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             let recognition = new window.SpeechRecognition();
-            recognition.continuous = true;
+            recognition.interimResults = true;
             recognition.lang = "ja-JP";
 
             recognition.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
-
+                
+                if(event.results[event.results.length-1]["isFinal"]) {
+                    dispatcher(text);
+                }
+                
                 if(text.indexOf(targetMuzzle) != -1){
                     vibrate();
                 }
-                console.log(text);
-                dispatcher(text);
             }
 
             recognition.onend = (event) => {
-                //recognition.stop();
+                recognition.stop();
                 recognition.start();
             }
 
@@ -44,7 +46,7 @@ export default function Home() {
         return () => {
             if(recognition != null) {
                 //recognition.abort();
-                recognition.stop();
+                recognition.abort();
             };
         }
     },[isRecording, dispatcher]);
@@ -82,7 +84,6 @@ export default function Home() {
     return (
         <div className="App-body">
             <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle.text}</span>」<br></br>を直そう</h1>
-            <button onClick={()=>history.push('/result')}>ToResult</button>
             {recordButton}
             <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>
         </div>
