@@ -1,6 +1,7 @@
 import React from 'react';
 import './Result.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+
 import testData from './test.json';
 import LEFT from '../assets/img/left-accessory.png';
 import RIGHT from '../assets/img/right-accessory.png';
@@ -13,9 +14,9 @@ import BG from '../assets/img/bg.png';
 
 export default function Result() {
     const history = useHistory();
+    const location = useLocation();
 
     const images = [ONE, TWO, THREE, FOUR, FIVE];
-
 
     const listItems = testData.map((data, index) =>
         <li key={index} className="List-item" onClick={() => history.push('/home')}>
