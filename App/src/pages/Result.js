@@ -9,6 +9,7 @@ import TWO from '../assets/img/2.png';
 import THREE from '../assets/img/3.png';
 import FOUR from '../assets/img/4.png';
 import FIVE from '../assets/img/5.png';
+import BG from '../assets/img/bg.png';
 
 export default function Result() {
     const history = useHistory();
@@ -17,15 +18,15 @@ export default function Result() {
 
 
     const listItems = testData.map((data, index) =>
-            <li key={index} className="List-item" onClick={()=>history.push('/home')}>
+        <li key={index} className="List-item" onClick={() => history.push('/home')}>
             <img src={images[index]}></img>
-                { data.str }{ " ： "}{ data.count } < span > { "回"}</span >
-                {/* <button >LOG</button> */}
-            </li>
+            <span className="List-item_muzzle-word">{data.str}</span><p className="List-item_muzzle-count">{data.count}<span className="List-item_muzzle-count-txt">{"回"}</span></p>
+            {/* <button >LOG</button> */}
+        </li>
     );
 
     return (
-        <div className="App-body">
+        <div className="App-body list-body" style={{backgroundImage:BG}}>
             <div className="background-circle"></div>
             <header className="App-body_rank-head">
                 <img src={LEFT} alt="左の装飾"/>

@@ -1,6 +1,15 @@
+.App-body{
+    height: 100vh !important;
+}
+
+/* .List-body {
+    background-image: url(../assets/img/bg.png);
+    background: image("../assets/img/bg.png");
+} */
+
 .App-body_rank-list {
     z-index: 1;
-    width: 80vw;
+    width: 90vw;
     margin: 0 auto;
 }
 
@@ -25,13 +34,24 @@
     border-radius: 12px;
     width: 100%;
     box-sizing: border-box;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2), 0px 1px 18px rgba(0, 0, 0, 0.12), 0px 6px 10px rgba(5, 2, 2, 0.14);
+    box-shadow: 0px 6px 10px rgba(5, 2, 2, 0.14);
+}
+
+.List-item_muzzle-word {
+    margin-left: 1.5rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.List-item_muzzle-count {
+    position: relative;
+    right: 0;
 }
 
 .App-body_rank-head {
     display: flex;
     justify-content: center;
-    margin: 2rem auto;
+    margin: 1rem auto;
     z-index: 1;
     color: #fff;
 }
@@ -50,6 +70,7 @@
     font-size: 3rem;
     letter-spacing: 0.25rem;
 }
+
 
 .background-circle {
     position: absolute;
