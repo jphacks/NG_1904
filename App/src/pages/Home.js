@@ -22,19 +22,23 @@ export default function Home() {
             recognition.interimResults = true;
             recognition.lang = "ja-JP";
 
+            let memoryIndex = 0;
+
             recognition.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
                 
                 if(event.results[event.results.length-1]["isFinal"]) {
                     dispatcher(text);
+                    memoryIndex = 0
                 }
-                
-                if(text.indexOf(targetMuzzle) != -1){
+                let index = text.lastIndexOf(targetMuzzle,memoryIndex)
+                if(index != -1){
                     vibrate();
+                    memoryIndex += text.length - 1;
                 }
                 
             }
-
+            
             recognition.onend = (event) => {
                 recognition.stop();
                 recognition.start();
