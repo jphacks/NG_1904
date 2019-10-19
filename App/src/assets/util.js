@@ -11,5 +11,5 @@ export function morphologicalAnalysis(text) {
 }
 
 export async function vibrate() {
-  window.navigator.vibrate([500, 100, 500]);
+  window.navigator.vibrate([200]);
 } 

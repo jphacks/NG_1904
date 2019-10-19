@@ -7,6 +7,12 @@ export default function Result() {
     const history = useHistory();
     const location = useLocation();
 
+    let showData = ( location.state )? (
+        <a>{location.state.countedWords}</a>
+    ):(
+        <a>{"値がありません"}</a>
+    )
+
     const listItems = testData.map((data, index) =>
             <li key={index} className="List-item" onClick={()=>history.push({pathname:'/home',state:{ str: data.str }})}>
                 {data.str}{" ： "}{data.count}
@@ -18,7 +24,7 @@ export default function Result() {
         <>
             <header>
                 <h1>ResultPage</h1>
-                <a>{location.state.countedWords}</a>
+                {showData}
             </header>
             <div>
                 <div>

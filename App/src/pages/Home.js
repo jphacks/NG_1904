@@ -9,7 +9,7 @@ export default function Home() {
     let [ targetMuzzle,setTargetMuzzle ] = useState({
         'text':'えっ',
     });
-    const [data, setData] = useState([]);
+    let [data, setData] = useState({"text":[]});
 
     let recognition;
     const location = useLocation();    
@@ -26,23 +26,24 @@ export default function Home() {
             window.alert(event.error);
         }
 
-        recognition.onresult = async function(event)  {
+        recognition.onresult = (event) =>  {
             let text = event.results[event.results.length-1][0].transcript;
-            await vibrate();
-            let tokens = await morphologicalAnalysis(text);
-            for(let token of tokens) {
-                if(token['surface_form'] === targetMuzzle['text']) {
-                    // ここにバイブレーションの動作を追加
-                    vibrate()
+            let tokens = morphologicalAnalysis(text).then(tokens => {
+                for(let token of tokens) {
+                    if(token['surface_form'] === targetMuzzle['text']) {
+                        // ここにバイブレーションの動作を追加
+                        vibrate()
+                    }
+                    // let data_copy =  Object.create(data);
+                    // data_copy.push(token['surface_form']);
+                    //console.log(setData,token['surface_form'])
+                    data["text"].push(token['surface_form']);
+    
+                    //window.confirm(token['surface_form']);
+                    //countedWords.push(token['surface_form']);
+                    console.log(data);
                 }
-                let data_copy =  Object.create(data);
-                data_copy.push(token['surface_form']);
-                setData(data_copy);
-
-                //window.confirm(token['surface_form']);
-                //countedWords.push(token['surface_form']);
-                console.log(data);
-            }
+            });
         }
         recognition.start();
     }
@@ -75,7 +76,7 @@ export default function Home() {
         <body className="App-body">
             <a>HomePage</a>
             {showMuzzleResult}
-            <button onClick={()=>history.push({pathname:'/result',state:{ countedWords: data }})}>ToResult</button>
+            <button onClick={()=>history.push({pathname:'/result',state:{ countedWords: data.text }})}>ToResult</button>
             {recordButton}
         </body>
     );
