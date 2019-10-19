@@ -54,9 +54,9 @@ export default function Home() {
 
     useEffect(() => {
         if(location.state) {
-            setTargetMuzzle(location.state.str);
+            setTargetMuzzle({"text": location.state.str});
         } else {
-            setTargetMuzzle("こんにちは");
+            setTargetMuzzle({"text":"口ぐせ"});
         }
     },[location.state])
 
@@ -81,7 +81,7 @@ export default function Home() {
 
     return (
         <div className="App-body">
-            <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">口グセ</span>」<br></br>を直そう</h1>
+            <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle.text}</span>」<br></br>を直そう</h1>
             <button onClick={()=>history.push('/result')}>ToResult</button>
             {recordButton}
             <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>

@@ -2,7 +2,6 @@ import React from 'react';
 import './Result.css';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import testData from './test.json';
 import LEFT from '../assets/img/left-accessory.png';
 import RIGHT from '../assets/img/right-accessory.png';
 import ONE from '../assets/img/1.png';
@@ -18,7 +17,7 @@ export default function Result() {
 
     const images = [ONE, TWO, THREE, FOUR, FIVE];
 
-    const listItems = testData.map((data, index) =>
+    const listItems = location.state.countedWords.map((data, index) =>
         <li key={index} className="List-item" onClick={() => history.push('/home')}>
             <img src={images[index]}></img>
             <span className="List-item_muzzle-word">{data.str}</span><p className="List-item_muzzle-count">{data.count}<span className="List-item_muzzle-count-txt">{"回"}</span></p>
