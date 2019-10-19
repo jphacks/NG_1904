@@ -25,8 +25,12 @@ export default function Result() {
         </li>
     );
 
+    let style = {
+        backgroundImage: `url(${BG})`
+    }
+
     return (
-        <div className="App-body list-body" style={{backgroundImage:BG}}>
+        <div className="App-body List-body" style={style}>
             <div className="background-circle"></div>
             <header className="App-body_rank-head">
                 <img src={LEFT} alt="左の装飾"/>
