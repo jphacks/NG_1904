@@ -8,8 +8,8 @@ export default function Home() {
         <div className="App">
             <body className="App-body">
                 <a>HomePage</a>
-                <Link to="/record">
-                    <button>ToRecord</button>
+                <Link to="/result">
+                    <button>ToResult</button>
                 </Link>
             </body>
         </div>

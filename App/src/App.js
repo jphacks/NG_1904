@@ -1,7 +1,7 @@
 import React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import Record from './pages/Record';
+import Result from './pages/Result';
 
 export default function App() {
 
@@ -10,7 +10,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/home" component={Home} />
-        <Route exact path="/record" component={Record}/>
+        <Route exact path="/result" component={Result}/>
         {/*<Route component={NotFound}/>*/}
       </Switch>
     </HashRouter>
