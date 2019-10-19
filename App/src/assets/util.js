@@ -9,3 +9,7 @@ export function morphologicalAnalysis(text) {
   })
   return promise
 }
+
+export async function vibrate() {
+  window.navigator.vibrate([500, 100, 500]);
+} 
