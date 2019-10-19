@@ -10,7 +10,7 @@ export default function Home() {
     let [ targetMuzzle,setTargetMuzzle ] = useState({
         'text':'えっ',
     });
-    let [data, setData] = useState([]);
+    let [data, setData] = useState("");
 
     useEffect(() => {
         if(isRecording){
@@ -21,27 +21,12 @@ export default function Home() {
 
             recognition.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
-                let tokens = morphologicalAnalysis(text).then(tokens => {
-                    let data_add = [];
+                console.log(text)
+                setData(data + text);
 
-                    for(let token of tokens) {
-                        if(token['surface_form'] === targetMuzzle['text']) {
-                            // ここにバイブレーションの動作を追加
-                            vibrate();
-                        }
-                        data_add.push(token['surface_form']);
-                        //console.log(setData,token['surface_form'])
-                        //data_copy.push(token['surface_form']);
-                        //window.confirm(token['surface_form']);
-                        //countedWords.push(token['surface_form']);
-                        console.log(data);
-                    }
-                    let data_add2 =  Object.create(data);
-                    let data_copy = data_add.concat(data_add2);
-                    setData(data_copy);
-                    console.log(data_copy);
-                });
+                console.log(data)
             }
+
             recognition.start();
             setRecognition(recognition);
         }
@@ -49,7 +34,7 @@ export default function Home() {
         return function cleanup() {
             //recognition.abort();
         };
-    },[isRecording]);
+    },[isRecording,data]);
     
 
     const location = useLocation();    
