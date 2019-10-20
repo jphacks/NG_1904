@@ -1,0 +1,17 @@
+{
+  "name": "Mousehat",
+  "short_name": "Mousehat",
+  "start_url": "/?utm_source=web_app_manifest",
+  "display": "standalone",
+  "orientation": "natural",
+  "background_color": "#fff",
+  "color":"#fff",
+  "theme_color": "#FBC438",
+  "icons": [
+    {
+      "src": "./logo.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    }
+  ]
+}
