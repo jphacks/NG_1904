@@ -7,10 +7,12 @@ import MIC from '../assets/img/mic.png';
 import TALK from '../assets/img/talk.png';
 import STOP from '../assets/img/stop.png';
 
+let staterecording = false;
+
 export default function Home() {
     const [ isRecording,setIsRecording ] = useState(false);
     const [ recognition,setRecognition ] = useState(null)
-    const [ targetMuzzle,setTargetMuzzle ] = useState({'text':'えっ'});
+    const [ targetMuzzle,setTargetMuzzle ] = useState({'text':'こんにちは'});
 
     const [data, dispatcher] = useReducer((prevData,text) => prevData + text ,"");
     
@@ -31,16 +33,19 @@ export default function Home() {
                     dispatcher(text);
                     memoryIndex = 0
                 }
-                let index = text.indexOf(targetMuzzle,memoryIndex)
+                let index = text.indexOf(targetMuzzle.text,memoryIndex)
                 if(index != -1){
+                    console.log("here");
                     vibrate();
                     memoryIndex += text.length - 1;
                 }
             }
             
             recognition.onend = (event) => {
-                recognition.stop();
-                recognition.start();
+                if(staterecording){
+                    recognition.stop();
+                    recognition.start();
+                }
             }
 
             recognition.start();
@@ -62,17 +67,20 @@ export default function Home() {
         if(location.state) {
             setTargetMuzzle({"text": location.state.str});
         } else {
-            setTargetMuzzle({"text":"口ぐせ"});
+            setTargetMuzzle({"text":"こんにちは"});
         }
     },[location.state])
 
 
     function recordStart() {
         setIsRecording(true);
+        staterecording = true;
     }
 
     async function recordStop() {
         setIsRecording(false);
+        staterecording = false;
+        
         if(data.trim().length != 0) {
             let tokens = await gooAPIClient(data);
             let wc = wordCount(tokens["word_list"][0]);
