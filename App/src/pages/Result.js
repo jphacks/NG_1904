@@ -43,6 +43,9 @@ export default function Result() {
                 <h1 className="App-body_rank-header">あなたの口グセ<br></br><span className="App-body_rank-header-top">TOP5</span></h1>
                 <img src={RIGHT} alt="右の装飾"/>
             </header>
+            <p className="App-body_rank-announce">
+                直したい口グセをタップ！
+            </p>
             <div className="App-body_rank-list">
                     <ol className="List">{listItems}</ol>
             </div>

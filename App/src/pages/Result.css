@@ -79,6 +79,14 @@
     letter-spacing: 0.25rem;
 }
 
+.App-body_rank-announce{
+    font-size: 1.25rem;
+    font-weight: bold;
+    width: 80%;
+    text-align: left;
+    margin-bottom: 0;
+}
+
 
 /* .background-circle {
     position: absolute;
