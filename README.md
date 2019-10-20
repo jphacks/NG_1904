@@ -1,7 +1,7 @@
 # Mousehat
 
 [![Product Name](image.png)](https://www.youtube.com/watch?v=G5rULR53uMk)
-
+＊このデモでは端末から音がなっているように聞こえますがデバイスが振動（バイブレーション）していることを強調するために，あえて端末を金属板に載せているために発生している音です．
 ## 製品概要
 ### 口グセ x Tech
 
