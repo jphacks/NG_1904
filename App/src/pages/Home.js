@@ -12,7 +12,7 @@ let staterecording = false;
 export default function Home() {
     const [ isRecording,setIsRecording ] = useState(false);
     const [ recognition,setRecognition ] = useState(null)
-    const [ targetMuzzle,setTargetMuzzle ] = useState({'text':'こんにちは'});
+    const [ targetMuzzle,setTargetMuzzle ] = useState({'text':'口グセ'});
 
     const [data, dispatcher] = useReducer((prevData,text) => prevData + text ,"");
     
@@ -67,7 +67,7 @@ export default function Home() {
         if(location.state) {
             setTargetMuzzle({"text": location.state.str});
         } else {
-            setTargetMuzzle({"text":"こんにちは"});
+            setTargetMuzzle({"text":"口グセ"});
         }
     },[location.state])
 
