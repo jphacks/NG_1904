@@ -17,12 +17,18 @@ export default function Result() {
 
     const images = [ONE, TWO, THREE, FOUR, FIVE];
 
-    const listItems = location.state.countedWords.map((data, index) =>
+    let listItems = ( !location.state )? (
+        <li key={0} className="List-item">
+            <p className="List-item_muzzle-count">{"値が存在しません．"}</p>
+        </li>
+    ):(
+        location.state.countedWords.map((data, index) =>
         <li key={index} className="List-item" onClick={() => history.push({pathname:'/home',state:{ str: data.str }})}>
             <img src={images[index]}></img>
             <span className="List-item_muzzle-word">{data.str}</span><p className="List-item_muzzle-count">{data.count}<span className="List-item_muzzle-count-txt">{"回"}</span></p>
             {/* <button >LOG</button> */}
         </li>
+        )
     );
 
     let style = {
