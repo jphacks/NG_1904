@@ -1,7 +1,7 @@
 import kuromoji from "kuromoji"
 
 const GOO_API_URL = 'https://labs.goo.ne.jp/api/morph'
-const POS_FILTER = ["名詞|格助詞|引用助詞|連用助詞|終助詞|空白|助数詞|助助数詞|冠数詞"]
+const POS_FILTER = ["名詞","格助詞","引用助詞","連用助詞","終助詞","空白","助数詞","助助数詞","冠数詞"]
 
 export function morphologicalAnalysis(text) {
   let promise = new Promise((resolve,reject) => {
@@ -33,6 +33,7 @@ export function gooAPIClient(text) {
 export function wordCount(words) {
   let wc = {}
   for(let word of words) {
+    console.log(word)
     let w = word[0];
     let t = word[1];
 
