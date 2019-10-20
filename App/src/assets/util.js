@@ -14,8 +14,8 @@ export function morphologicalAnalysis(text) {
 }
 
 export function vibrate() {
-  window.navigator.vibrate([500, 100, 500]);
-} 
+  window.navigator.vibrate([500, 100, 100,50,100]);
+}
 
 export function gooAPIClient(text) {
   return fetch(GOO_API_URL,{
