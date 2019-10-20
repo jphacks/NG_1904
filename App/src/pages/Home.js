@@ -33,8 +33,9 @@ export default function Home() {
                     dispatcher(text);
                     memoryIndex = 0
                 }
-                let index = text.lastIndexOf(targetMuzzle,memoryIndex)
+                let index = text.indexOf(targetMuzzle.text,memoryIndex)
                 if(index != -1){
+                    console.log("here");
                     vibrate();
                     memoryIndex += text.length - 1;
                 }
