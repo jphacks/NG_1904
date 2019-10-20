@@ -18,7 +18,7 @@ export default function Result() {
     const images = [ONE, TWO, THREE, FOUR, FIVE];
 
     let listItems = ( !location.state )? (
-        <li key={0} className="List-item">
+        <li key={0} className="List-item" onClick={() => history.push({pathname:'/home',state:{ str: "口グセ" }})}>
             <p className="List-item_muzzle-count">{"値が存在しません．"}</p>
         </li>
     ):(
