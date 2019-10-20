@@ -49,7 +49,13 @@ Android端末を胸ポケットなどに入れることによって，周りの�
 #### API・データ  
 今回スポンサーから提供されたAPI、製品などの外部技術があれば記述をして下さい。  
 
-* 形態素解析API(gooラボAPI)  
+* スポンサー様のAPI
+  * 形態素解析API(gooラボAPI)  
+
+* 外部API
+  * Web API
+    * Web Speech API
+    * Vibrate API 
 
 #### フレームワーク・ライブラリ・モジュール
 * React  
