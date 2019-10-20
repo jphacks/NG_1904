@@ -31,7 +31,7 @@ export default function Home() {
                     dispatcher(text);
                     memoryIndex = 0
                 }
-                let index = text.lastIndexOf(targetMuzzle,memoryIndex)
+                let index = text.indexOf(targetMuzzle,memoryIndex)
                 if(index != -1){
                     vibrate();
                     memoryIndex += text.length - 1;
@@ -73,10 +73,11 @@ export default function Home() {
 
     async function recordStop() {
         setIsRecording(false);
-        let tokens = await gooAPIClient(data);
-        let wc = wordCount(tokens["word_list"][0]);
-        console.log(wc);
-        history.push({pathname:'/result',state:{ countedWords: wc }})
+        if(data.trim().length != 0) {
+            let tokens = await gooAPIClient(data);
+            let wc = wordCount(tokens["word_list"][0]);
+            history.push({pathname:'/result',state:{ countedWords: wc }})
+        } 
     } 
 
     let recordButton = ( isRecording )? (
