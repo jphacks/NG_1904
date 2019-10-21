@@ -66,8 +66,17 @@ export default function Home() {
     useEffect(() => {
         if(location.state) {
             setTargetMuzzle({"text": location.state.str});
-        } else {
+        }else{
             setTargetMuzzle({"text":"口グセ"});
+        }
+        //対応していないブラウザで警告を表示する
+        //IOS版のChrome，safari,Android版のChrome，firefox，デスクトップ版のchrome,firefoxで動作確認済み
+        if(targetMuzzle.text==="口グセ"){
+            const agent = window.navigator.userAgent.toLowerCase();
+            const chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1);
+            if(!chrome){
+                window.alert("お使いのブラウザは対応しておりません．Android版のChromeをお使いください．");
+            }
         }
     },[location.state])
 
