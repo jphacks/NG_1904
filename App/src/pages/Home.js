@@ -54,11 +54,10 @@ export default function Home() {
 
         return () => {
             if(recognition != null) {
-                //recognition.abort();
                 recognition.abort();
             };
         }
-    },[isRecording, dispatcher]);
+    },[isRecording, dispatcher, staterecording]);
 
     const location = useLocation();    
     const history = useHistory();

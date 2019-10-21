@@ -19,7 +19,7 @@ export default function Result() {
 
     let listItems = ( !location.state )? (
         <li key={0} className="List-item" onClick={() => history.push({pathname:'/home',state:{ str: "口グセ" }})}>
-            <p className="List-item_muzzle-count">{"値が存在しません．"}</p>
+            <p className="List-item_muzzle-word">{"値が存在しません．"}<br/>{"タップして録音をやり直してください．"}</p>
         </li>
     ):(
         location.state.countedWords.map((data, index) =>
