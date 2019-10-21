@@ -1,0 +1,24 @@
+
+.App-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: #4f4f4f;
+    padding-top: 2rem;
+}
+
+.App-body_notfound-header {
+    font-size: 2.75rem;
+    text-align: center;
+    line-height: 3.75rem;
+    font-weight: bold;
+    margin-bottom: 1.75rem;
+}
+
+.App-body_notfound-img {
+    position: absolute;
+    bottom: 0;
+    width: 20rem;
+}
