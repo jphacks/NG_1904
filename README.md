@@ -14,7 +14,7 @@
 
 #### Webアプリケーション  
 ブラウザからで使えるので手軽に利用できます．  
-対応ブラウザ：Android版Chrome，Desktop版Chrome  
+対応ブラウザ：Android版Chrome，~~Desktop版Chrome~~ 
 
 #### 仕様の説明＆使い方
 以下の画面がAndroid端末での遷移画面になります．まず，Home画面に遷移します．
