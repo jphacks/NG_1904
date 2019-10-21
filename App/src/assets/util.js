@@ -1,7 +1,12 @@
 import kuromoji from "kuromoji"
 
 const GOO_API_URL = 'https://labs.goo.ne.jp/api/morph'
-const POS_FILTER = ["名詞","格助詞","引用助詞","連用助詞","終助詞","空白","助数詞","助助数詞","冠数詞"]
+//名詞などの口癖に関係のない形態素要素を削除
+//https://labs.goo.ne.jp/api/jp/morphological-analysis-pos_filter/
+//"名詞接尾辞"は”わかりみが深い”の”み”などの検出に使うのでフィルタしてない
+const POS_FILTER_MUST = ["名詞","格助詞","括弧","句点","読点","空白","助数詞","助助数詞","冠数詞","英語接尾辞"]
+const POS_FILTER_MAYBE = ["引用助詞","連用助詞","終助詞"];
+const POS_FILTER = POS_FILTER_MUST.concat(POS_FILTER_MAYBE);
 
 export function morphologicalAnalysis(text) {
   let promise = new Promise((resolve,reject) => {
