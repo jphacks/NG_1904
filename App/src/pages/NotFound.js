@@ -13,7 +13,7 @@ export default function NotFound() {
                 This Page is<br/>
                 Not FOUND.
             </h1>
-            <button onClick={() => history.push({pathname:'/home',state:{ str: "口グセ" }})}>To Home</button>
+            <button onClick={() => history.push({pathname:'/home',state:{ str: "口癖" }})}>To Home</button>
             <img className="App-body_notfound-img" src={TALK} alt="会話する人間"/>
         </div>
     );
