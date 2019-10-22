@@ -18,7 +18,7 @@ export default function Result() {
     const images = [ONE, TWO, THREE, FOUR, FIVE];
 
     let listItems = ( !location.state )? (
-        <li key={0} className="List-item" onClick={() => history.push({pathname:'/home',state:{ str: "口グセ" }})}>
+        <li key={0} className="List-item" onClick={() => history.push({pathname:'/home',state:{ str: "口癖" }})}>
             <p className="List-item_muzzle-word">{"値が存在しません．"}<br/>{"タップして録音をやり直してください．"}</p>
         </li>
     ):(
@@ -40,11 +40,11 @@ export default function Result() {
             <div className="background-circle"></div>
             <header className="App-body_rank-head">
                 <img src={LEFT} alt="左の装飾"/>
-                <h1 className="App-body_rank-header">あなたの口グセ<br></br><span className="App-body_rank-header-top">TOP5</span></h1>
+                <h1 className="App-body_rank-header">あなたの口癖<br></br><span className="App-body_rank-header-top">TOP5</span></h1>
                 <img src={RIGHT} alt="右の装飾"/>
             </header>
             <p className="App-body_rank-announce">
-                直したい口グセをタップ！
+                直したい口癖をタップ！
             </p>
             <div className="App-body_rank-list">
                     <ol className="List">{listItems}</ol>

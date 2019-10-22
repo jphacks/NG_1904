@@ -12,10 +12,10 @@ let staterecording = false;
 export default function Home() {
     const [ isRecording,setIsRecording ] = useState(false);
     const [ recognition,setRecognition ] = useState(null)
-    const [ targetMuzzle,setTargetMuzzle ] = useState({'text':'口グセ'});
+    const [ targetMuzzle,setTargetMuzzle ] = useState({'text':'口癖'});
 
     const [data, dispatcher] = useReducer((prevData,text) => prevData + text ,"");
-    
+
     useEffect(() => {
         console.log("Hey");
         if(isRecording){
@@ -28,7 +28,7 @@ export default function Home() {
 
             recognition.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
-                
+
                 if(event.results[event.results.length-1]["isFinal"]) {
                     dispatcher(text);
                     memoryIndex = 0
@@ -40,7 +40,7 @@ export default function Home() {
                     memoryIndex += text.length - 1;
                 }
             }
-            
+
             recognition.onend = (event) => {
                 if(staterecording){
                     recognition.stop();
@@ -59,18 +59,18 @@ export default function Home() {
         }
     },[isRecording, dispatcher, staterecording]);
 
-    const location = useLocation();    
+    const location = useLocation();
     const history = useHistory();
 
     useEffect(() => {
         if(location.state) {
             setTargetMuzzle({"text": location.state.str});
         }else{
-            setTargetMuzzle({"text":"口グセ"});
+            setTargetMuzzle({"text":"口癖"});
         }
         //対応していないブラウザで警告を表示する
         //IOS版のChrome，safari,Android版のChrome，firefox，デスクトップ版のchrome,firefoxで動作確認済み
-        if(targetMuzzle.text==="口グセ"){
+        if(targetMuzzle.text==="口癖"){
             const agent = window.navigator.userAgent.toLowerCase();
             const chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1);
             if(!chrome){
@@ -88,13 +88,13 @@ export default function Home() {
     async function recordStop() {
         setIsRecording(false);
         staterecording = false;
-        
+
         if(data.trim().length != 0) {
             let tokens = await gooAPIClient(data);
             let wc = wordCount(tokens["word_list"][0]);
             history.push({pathname:'/result',state:{ countedWords: wc }})
-        } 
-    } 
+        }
+    }
 
     let recordButton = ( isRecording )? (
         <button onClick={recordStop} className="App-body_reco-stop"><img src={STOP} alt="停止"/>録音終了</button>
