@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_WORDS, ADD_SENTENCES, SET_PAGE, PAGES } from '../actions/actions';
+import { ADD_WORDS, ADD_SENTENCES, SET_PAGE, PAGES, SET_TARGET_MUZZLE } from '../actions/actions';
 
 
 function setPages(state, action) {
@@ -10,20 +10,27 @@ function setPages(state, action) {
   }
   switch (action.type) {
     case SET_PAGE:
-      if(state.currentPage === PAGES.RECORDS){
-        return Object.assign({}, state, {
-          currentPage: PAGES.RESULTS
-        });
-      }else if(state.currentPage === PAGES.RESULTS){
-        return Object.assign({}, state, {
-          currentPage: PAGES.RECORDS
-        });
-      }
-
       return Object.assign({}, state, {
-        currentPage: PAGES.RECORDS
+        currentPage: action.currentPage
       });
       
+    default:
+      //stateが不明の場合はそのまま返すのがセオリー
+      return state
+  }
+}
+
+function setMuzzle(state, action) {
+  if (typeof state === "undefined") {
+    return {
+      targetMuzzle: "口癖"
+    };
+  }
+  switch (action.type) {
+    case SET_TARGET_MUZZLE:
+      return Object.assign({}, state, {
+        targetMuzzle: action.targetMuzzle 
+      });
     default:
       //stateが不明の場合はそのまま返すのがセオリー
       return state
@@ -53,7 +60,8 @@ function addContent(state, action) {
 
 const mousehatApp = combineReducers({
   setPages,
-  addContent
+  addContent,
+  setMuzzle
 })
 
 export default mousehatApp
