@@ -32,7 +32,6 @@ function setMuzzle(state, action) {
         targetMuzzle: action.targetMuzzle 
       });
     default:
-      //stateが不明の場合はそのまま返すのがセオリー
       return state
   }
 }
@@ -53,7 +52,6 @@ function addContent(state, action) {
       });
 
     default:
-      //stateが不明の場合はそのまま返すのがセオリー
       return state
   }
 }

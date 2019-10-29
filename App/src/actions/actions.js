@@ -8,7 +8,8 @@ export const SET_TARGET_MUZZLE = 'SET_TARGET_MUZZLE';
 export const PAGES = {
   RECORDS: 'RECORDS',
   RESULTS: 'RESULTS',
-  RECORDING: 'RECORDING'//RECORDINGはまだ未実装
+  RECORDING: 'RECORDING',
+  NOTFOUND: 'NOTFOUND'
 }
 
 //action creators

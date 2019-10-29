@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './Result.css';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import LEFT from '../assets/img/left-accessory.png';
 import RIGHT from '../assets/img/right-accessory.png';
@@ -12,10 +12,9 @@ import FIVE from '../assets/img/5.png';
 import BG from '../assets/img/bg.png';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setPage, setTargetMuzzle } from '../actions/actions';
+import { setPage, setTargetMuzzle, PAGES } from '../actions/actions';
 
 export default function Result() {
-    //const currentPage = useSelector(state => state.setPages.currentPage);
     const countedWords = useSelector(state => state.addContent.words);
     const dispatch = useDispatch();
 
@@ -24,12 +23,10 @@ export default function Result() {
     const images = [ONE, TWO, THREE, FOUR, FIVE];
 
     useEffect(() => {
-        dispatch(setPage("RESULTS"));
-        console.log(countedWords);
+        dispatch(setPage(PAGES.RESULTS));
     },[])
 
     function onClickList (dataSend) {
-        //dispatch(setPage());
         dispatch(setTargetMuzzle(dataSend));
         history.push({pathname:'/home'});
     }
@@ -41,7 +38,7 @@ export default function Result() {
     ):(
         countedWords.map((data, index) =>
         <li key={index} className="List-item" onClick={() => onClickList(data.str)}>
-            <img src={images[index]}></img>
+            <img src={images[index]} alt="順位"></img>
             <span className="List-item_muzzle-word">{data.str}</span><p className="List-item_muzzle-count">{data.count}<span className="List-item_muzzle-count-txt">{"回"}</span></p>
             {/* <button >LOG</button> */}
         </li>
