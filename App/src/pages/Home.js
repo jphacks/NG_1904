@@ -7,14 +7,19 @@ import MIC from '../assets/img/mic.png';
 import TALK from '../assets/img/talk.png';
 import STOP from '../assets/img/stop.png';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 let staterecording = false;
 
 export default function Home() {
+    const currentPage = useSelector(state => state.setPages.currentPage);
+    const dispatch = useDispatch();
+
     const [ isRecording,setIsRecording ] = useState(false);
     const [ recognition,setRecognition ] = useState(null)
     const [ targetMuzzle,setTargetMuzzle ] = useState({'text':'口癖'});
 
-    const [data, dispatcher] = useReducer((prevData,text) => prevData + text ,"");
+    const [data, dispatcher_red] = useReducer((prevData,text) => prevData + text ,"");
 
     useEffect(() => {
         console.log("Hey");
@@ -30,7 +35,7 @@ export default function Home() {
                 let text = event.results[event.results.length-1][0].transcript;
 
                 if(event.results[event.results.length-1]["isFinal"]) {
-                    dispatcher(text);
+                    dispatcher_red(text);
                     memoryIndex = 0
                 }
                 let index = text.indexOf(targetMuzzle.text,memoryIndex)
@@ -57,7 +62,7 @@ export default function Home() {
                 recognition.abort();
             };
         }
-    },[isRecording, dispatcher, staterecording]);
+    },[isRecording, dispatcher_red, staterecording]);
 
     const location = useLocation();
     const history = useHistory();
@@ -78,7 +83,6 @@ export default function Home() {
             }
         }
     },[location.state])
-
 
     function recordStart() {
         setIsRecording(true);
