@@ -18,8 +18,10 @@
     "kuromoji": "^0.1.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.2.0"
+    "react-scripts": "^3.2.0",
+    "redux": "^4.0.4"
   },
   "browserslist": {
     "production": [

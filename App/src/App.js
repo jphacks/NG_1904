@@ -4,9 +4,11 @@ import Home from './pages/Home';
 import Result from './pages/Result';
 import NotFound from './pages/NotFound';
 
-export default function App() {
-  
-  return (
+import PropTypes from 'prop-types'
+import { Provider } from 'react-redux';
+
+const App = ({ store }) => (
+  <Provider store={store}>
     <HashRouter>
       <Switch>
         <Route exact path="/" component={Home} />
@@ -15,6 +17,11 @@ export default function App() {
         <Route component={NotFound}/>
       </Switch>
     </HashRouter>
-  );
+  </Provider>
+);
 
+App.propTypes = {
+  store: PropTypes.object.isRequired
 }
+
+export default App;

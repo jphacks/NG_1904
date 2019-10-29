@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Result.css';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import LEFT from '../assets/img/left-accessory.png';
 import RIGHT from '../assets/img/right-accessory.png';
@@ -11,24 +11,39 @@ import FOUR from '../assets/img/4.png';
 import FIVE from '../assets/img/5.png';
 import BG from '../assets/img/bg.png';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setPage, setTargetMuzzle, PAGES } from '../actions/actions';
+
 export default function Result() {
+    const countedWords = useSelector(state => state.addContent.words);
+    const dispatch = useDispatch();
+
     const history = useHistory();
-    const location = useLocation();
 
     const images = [ONE, TWO, THREE, FOUR, FIVE];
 
-    let listItems = ( !location.state )? (
-        <li key={0} className="List-item" onClick={() => history.push({pathname:'/home',state:{ str: "口癖" }})}>
+    useEffect(() => {
+        dispatch(setPage(PAGES.RESULTS));
+    },[])
+
+    function onClickList (dataSend) {
+        dispatch(setTargetMuzzle(dataSend));
+        history.push({pathname:'/home'});
+    }
+
+    let listItems = ( typeof countedWords === "undefined" || countedWords === "" )? (
+        <li key={0} className="List-item" onClick={() => onClickList("口癖")}>
             <p className="List-item_muzzle-word">{"値が存在しません．"}<br/>{"タップして録音をやり直してください．"}</p>
         </li>
     ):(
-        location.state.countedWords.map((data, index) =>
-        <li key={index} className="List-item" onClick={() => history.push({pathname:'/home',state:{ str: data.str }})}>
-            <img src={images[index]}></img>
+        countedWords.map((data, index) =>
+        <li key={index} className="List-item" onClick={() => onClickList(data.str)}>
+            <img src={images[index]} alt="順位"></img>
             <span className="List-item_muzzle-word">{data.str}</span><p className="List-item_muzzle-count">{data.count}<span className="List-item_muzzle-count-txt">{"回"}</span></p>
             {/* <button >LOG</button> */}
         </li>
         )
+        
     );
 
     let style = {

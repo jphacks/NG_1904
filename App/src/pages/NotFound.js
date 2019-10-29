@@ -1,11 +1,19 @@
-import React,{ useState, useEffect, useReducer } from 'react';
+import React,{ useEffect } from 'react';
 import './NotFound.css';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import TALK from '../assets/img/talk.png';
 
+import { useDispatch } from 'react-redux';
+import { setPage, PAGES } from '../actions/actions';
+
 export default function NotFound() {
     const history = useHistory();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setPage(PAGES.NOTFOUND));
+    },[])
 
     return (
         <div className="App-body">
@@ -13,7 +21,7 @@ export default function NotFound() {
                 This Page is<br/>
                 Not FOUND.
             </h1>
-            <button onClick={() => history.push({pathname:'/home',state:{ str: "口癖" }})}>To Home</button>
+            <button onClick={() => history.push({pathname:'/home'})}>To Home</button>
             <img className="App-body_notfound-img" src={TALK} alt="会話する人間"/>
         </div>
     );
