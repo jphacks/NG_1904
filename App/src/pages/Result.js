@@ -25,6 +25,7 @@ export default function Result() {
 
     useEffect(() => {
         dispatch(setPage("RESULTS"));
+        console.log(countedWords);
     },[])
 
     function onClickList (dataSend) {
@@ -33,7 +34,7 @@ export default function Result() {
         history.push({pathname:'/home'});
     }
 
-    let listItems = ( countedWords === "undefined" || countedWords === "" )? (//ここの挙動を正しく直す
+    let listItems = ( typeof countedWords === "undefined" || countedWords === "" )? (
         <li key={0} className="List-item" onClick={() => onClickList("口癖")}>
             <p className="List-item_muzzle-word">{"値が存在しません．"}<br/>{"タップして録音をやり直してください．"}</p>
         </li>
