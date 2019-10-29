@@ -1,14 +1,14 @@
 import React,{ useState, useEffect, useReducer } from 'react';
 import './Home.css';
 import { useHistory } from 'react-router-dom';
-import { morphologicalAnalysis, vibrate, gooAPIClient, wordCount } from '../assets/util';
+import { vibrate, gooAPIClient, wordCount } from '../assets/util';/* morphologicalAnalysis */
 
 import MIC from '../assets/img/mic.png';
 import TALK from '../assets/img/talk.png';
 import STOP from '../assets/img/stop.png';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setPage, addWords, addSentences } from '../actions/actions' 
+import { setPage, addWords, PAGES } from '../actions/actions' 
 
 //stateで管理すると2回目から録音ボタンを押しても何も始まらなくなるので設定
 //いずれ解決する必要あり
@@ -42,8 +42,8 @@ export default function Home() {
                     memoryIndex = 0
                 }
                 let index = text.indexOf(targetMuzzle,memoryIndex)
-                if(index != -1){
-                    console.log("here");
+                if(index !== -1){
+                    console.log("vibrate");//PCでの確認用
                     vibrate();
                     memoryIndex += text.length - 1;
                 }
@@ -65,14 +65,14 @@ export default function Home() {
                 recognition.abort();
             };
         }
-    },[isRecording, dispatcherReducer, staterecording]);
+    },[ isRecording, dispatcherReducer, staterecording ]);
 
     const history = useHistory();
 
     useEffect(() => {
         //対応していないブラウザで警告を表示する
         //IOS版のChrome，safari,Android版のChrome，firefox，デスクトップ版のchrome,firefoxで動作確認済み
-        dispatch(setPage("RECORDS"));
+        dispatch(setPage(PAGES.RECORDS));
         if(targetMuzzle==="口癖"){
             const agent = window.navigator.userAgent.toLowerCase();
             const chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1);
@@ -83,20 +83,26 @@ export default function Home() {
     },[])
 
     function recordStart() {
+        //将来的にまとめたい
         setIsRecording(true);
         staterecording = true;
+
+        dispatch(setPage(PAGES.RECORDING));
     }
 
     async function recordStop() {
+        //将来的にまとめたい
         setIsRecording(false);
         staterecording = false;
-        //dispatch(setPage());
         
-        if(data.trim().length != 0) {
+        //ストップボタン押下時に録音データが存在した場合にページ遷移
+        if(data.trim().length !== 0) {
             let tokens = await gooAPIClient(data);
             let wc = wordCount(tokens["word_list"][0]);
             dispatch(addWords(wc));
             history.push({pathname:'/result'})
+        }else{
+            dispatch(setPage(PAGES.RECORDS));
         }
     }
 
