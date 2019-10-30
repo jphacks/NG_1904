@@ -20,21 +20,21 @@ export default function Home() {
     const dispatch = useDispatch();
 
     const [ isRecording,setIsRecording ] = useState(false);
-    const [ recognition,setRecognition ] = useState(null);
 
     const [data, dispatcherReducer] = useReducer((prevData,text) => prevData + text ,"");
 
     useEffect(() => {
-        console.log("Hey");
+        console.log("Effect is Called");
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognize = new window.SpeechRecognition();
+
         if(isRecording){
-            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            let recognition = new window.SpeechRecognition();
-            recognition.interimResults = true;
-            recognition.lang = "ja-JP";
+            recognize.interimResults = true;
+            recognize.lang = "ja-JP";
 
             let memoryIndex = 0;
 
-            recognition.onresult = (event) =>  {
+            recognize.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
 
                 if(event.results[event.results.length-1]["isFinal"]) {
@@ -49,23 +49,22 @@ export default function Home() {
                 }
             }
 
-            recognition.onend = (event) => {
+            recognize.onend = (event) => {
                 if(staterecording){
-                    recognition.stop();
-                    recognition.start();
+                    recognize.stop();
+                    recognize.start();
                 }
             }
-
-            recognition.start();
-            setRecognition(recognition);
+            recognize.start();
         }
 
         return () => {
-            if(recognition != null) {
-                recognition.abort();
+            if(recognize != null) {
+                recognize.abort();
             };
         }
-    },[ isRecording, dispatcherReducer, staterecording ]);
+        //targetMuzzleは更新されないので依存関係に含めていい（はず）
+    },[ isRecording, dispatcherReducer, targetMuzzle ]);
 
     const history = useHistory();
 
@@ -80,7 +79,7 @@ export default function Home() {
                 window.alert("お使いのブラウザは対応しておりません．Android版のChromeをお使いください．");
             }
         }
-    },[])
+    },[ targetMuzzle ])
 
     function recordStart() {
         //将来的にまとめたい
