@@ -24,7 +24,7 @@ export default function Result() {
 
     useEffect(() => {
         dispatch(setPage(PAGES.RESULTS));
-    },[])
+    },[ dispatch ])
 
     function onClickList (dataSend) {
         dispatch(setTargetMuzzle(dataSend));
