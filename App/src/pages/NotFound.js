@@ -13,7 +13,7 @@ export default function NotFound() {
 
     useEffect(() => {
         dispatch(setPage(PAGES.NOTFOUND));
-    },[])
+    },[ dispatch ])
 
     return (
         <div className="App-body">

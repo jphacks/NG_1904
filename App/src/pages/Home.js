@@ -18,10 +18,9 @@ export default function Home() {
     //const currentPage = useSelector(state => state.setPages.currentPage);
     const targetMuzzle = useSelector(state => state.setMuzzle.targetMuzzle);
     const dispatch = useDispatch();
-
     const [ isRecording,setIsRecording ] = useState(false);
-
     const [data, dispatcherReducer] = useReducer((prevData,text) => prevData + text ,"");
+    const history = useHistory();
 
     useEffect(() => {
         console.log("Effect is Called");
@@ -66,8 +65,6 @@ export default function Home() {
         //targetMuzzleは更新されないので依存関係に含めていい（はず）
     },[ isRecording, dispatcherReducer, targetMuzzle ]);
 
-    const history = useHistory();
-
     useEffect(() => {
         //対応していないブラウザで警告を表示する
         //IOS版のChrome，safari,Android版のChrome，firefox，デスクトップ版のchrome,firefoxで動作確認済み
@@ -79,7 +76,7 @@ export default function Home() {
                 window.alert("お使いのブラウザは対応しておりません．Android版のChromeをお使いください．");
             }
         }
-    },[ targetMuzzle ])
+    },[ targetMuzzle, dispatch ])
 
     function recordStart() {
         //将来的にまとめたい
