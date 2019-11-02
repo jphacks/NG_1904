@@ -31,18 +31,36 @@ export default function Result() {
         history.push({pathname:'/home'});
     }
 
+    function transitionDetail (e,text) {
+        // イベントバブリングを抑止
+        e.stopPropagation();
+        history.push({pathname:'/detail'});
+    }
+
     let listItems = ( typeof countedWords === "undefined" || countedWords === "" )? (
         <li key={0} className="List-item" onClick={() => onClickList("口癖")}>
             <p className="List-item_muzzle-word">{"値が存在しません．"}<br/>{"タップして録音をやり直してください．"}</p>
         </li>
     ):(
-        countedWords.map((data, index) =>
-        <li key={index} className="List-item" onClick={() => onClickList(data.str)}>
-            <img src={images[index]} alt="順位"></img>
-            <span className="List-item_muzzle-word">{data.str}</span><p className="List-item_muzzle-count">{data.count}<span className="List-item_muzzle-count-txt">{"回"}</span></p>
-            {/* <button >LOG</button> */}
-        </li>
-        )
+        countedWords.map((data, index) => (
+            <li key={index} className="List-item" onClick={() => onClickList(data.str)}>
+                <img src={images[index]} alt="順位" />
+                <span className="List-item_muzzle-word">
+                    {data.str}
+                </span>
+                <p className="List-item_muzzle-count">
+                    {data.count}
+                    <span className="List-item_muzzle-count-txt">
+                        回
+                    </span>
+
+                    {/* 仮説のボタンです */}
+                    <button onClick={(e) => {transitionDetail(e,data.str)}}>
+                        詳細
+                    </button>
+                </p>
+            </li>
+        ))
         
     );
 
