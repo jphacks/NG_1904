@@ -1,0 +1,40 @@
+version: 2
+
+commands:
+  npm_install:
+    description: "依存関係のインストール"
+    steps:
+      - run:
+          name: "Nodeの依存関係のインストール(yarn)"
+          command: yarn
+          working_directory: App
+  react_build:
+    description: "Reactのビルド"
+    steps:
+      - run:
+          name: "Reactアプリのビルド(yarn build)"
+          command: yarn build
+          working_directory: App
+  deploy:
+    description: "Firebaseへのデプロイ"
+    steps:
+      - run:
+          name: "Firebaseへのデプロイ"
+          command: ./node_modules/.bin/firebase --project "$FIREBASE_PROJECT_ID" --token "$FIREBASE_TOKEN"
+          working_directory: App
+
+# masterブランチにプッシュした場合に自動デプロイ
+jobs:
+  build:
+    working_directory: ~/workdir
+    branches:
+        only:
+          - master
+    docker:
+      - image: circleci/node:10.15.3
+    steps:
+      - checkout
+      - npm_install
+      - react_build
+      - deploy
+    
