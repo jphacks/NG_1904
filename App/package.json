@@ -14,6 +14,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/jest": "^24.0.21",
+    "@types/node": "^12.12.5",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.3",
+    "@types/react-redux": "^7.1.5",
+    "@types/react-router-dom": "^5.1.2",
     "gh-pages": "^2.1.1",
     "kuromoji": "^0.1.2",
     "react": "^16.10.2",
@@ -21,7 +27,8 @@
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.2.0",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "typescript": "^3.6.4"
   },
   "browserslist": {
     "production": [
@@ -34,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "firebase-tools": "^7.6.2",
+    "node-sass": "^4.13.0"
   }
 }

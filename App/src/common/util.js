@@ -38,7 +38,6 @@ export function gooAPIClient(text) {
 export function wordCount(words) {
   let wc = {}
   for(let word of words) {
-    console.log(word)
     let w = word[0];
     let t = word[1];
 

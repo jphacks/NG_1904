@@ -3,3 +3,5 @@ build
 /src/pages/test.json
 /public/dict/*
 .env
+
+.firebase
