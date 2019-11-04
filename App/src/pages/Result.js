@@ -17,7 +17,6 @@ import { setPage, setTargetMuzzle, PAGES } from '../actions/actions';
 export default function Result() {
     const countedWords = useSelector(state => state.addContent.words);
     const dispatch = useDispatch();
-
     const history = useHistory();
 
     const images = [ONE, TWO, THREE, FOUR, FIVE];
@@ -34,6 +33,7 @@ export default function Result() {
     function transitionDetail (e,text) {
         // イベントバブリングを抑止
         e.stopPropagation();
+        dispatch(setTargetMuzzle(text));
         history.push({pathname:'/detail'});
     }
 
