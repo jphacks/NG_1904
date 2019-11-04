@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "mousehat"
+    "default": "mousehat",
+    "mousehat": "polished-zephyr-258013"
   }
 }
