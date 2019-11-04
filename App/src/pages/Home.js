@@ -19,6 +19,7 @@ export default function Home() {
     const targetMuzzle = useSelector(state => state.setMuzzle.targetMuzzle);
     const dispatch = useDispatch();
     const [ isRecording,setIsRecording ] = useState(false);
+    const [ latestText,setLatestText ] = useState("");
     const [data, dispatcherReducer] = useReducer((prevData,text) => prevData + text ,"");
     const history = useHistory();
 
@@ -36,8 +37,11 @@ export default function Home() {
             recognize.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
 
+                // Chromeの挙動チェック用
+                console.log(event.results[event.results.length-1]["isFinal"],event.results[event.results.length-1][0].transcript)
                 if(event.results[event.results.length-1]["isFinal"]) {
                     dispatcherReducer(text);
+                    setLatestText(text)
                     memoryIndex = 0
                 }
                 let index = text.indexOf(targetMuzzle,memoryIndex)
@@ -102,6 +106,10 @@ export default function Home() {
         }
     }
 
+    function transitionSelect() {
+        history.push({pathname:"select"});
+    }
+
     let recordButton = ( isRecording )? (
         <button onClick={recordStop} className="App-body_reco-stop"><img src={STOP} alt="停止"/>録音終了</button>
     ):(
@@ -110,7 +118,13 @@ export default function Home() {
 
     return (
         <div className="App-body">
-            Circleciのテスト
+            CircleCIのテスト
+            <button onClick={transitionSelect}>
+                Select Button
+            </button>
+            <div>
+                {latestText}
+            </div>
             <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle}</span>」<br></br>を直そう</h1>
             {recordButton}
             <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>
