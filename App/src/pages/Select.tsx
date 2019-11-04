@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setTargetMuzzle } from '../actions/actions';
 
+import '../App.scss';
+
 export default function Select(props: any) {
   const [ muzzleList, setMuzzleList ]: [ Array<string>, React.Dispatch<Array<string>> ] = useState(['めっちゃ','えーっと','ジェーピーハックス','ゆーて','やばい','無理','どうせ','でも',]);
   const [ muzzleText,setMuzzleText ]: [ string,React.Dispatch<string> ] = useState('');

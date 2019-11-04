@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import '../App.scss';
 
 export default function Detail(props: any) {
   const history = useHistory();
