@@ -1,11 +1,12 @@
 import React,{ useState, useEffect, useReducer } from 'react';
-import './Home.css';
+
 import { useHistory } from 'react-router-dom';
 import { vibrate, gooAPIClient, wordCount } from '../common/util';/* morphologicalAnalysis */
 
 import MIC from '../assets/img/mic.png';
 import TALK from '../assets/img/talk.png';
 import STOP from '../assets/img/stop.png';
+import '../App.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setPage, addWords, PAGES } from '../actions/actions' 
