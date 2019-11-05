@@ -11,6 +11,10 @@ jobs:
       - image: circleci/node:10.15.3
     steps:
       - checkout
+       - run:
+          name: "tscのインストール"
+          command: yarn global add typescript
+          working_directory: App
       - run:
           name: "Nodeの依存関係のインストール(yarn)"
           command: yarn
