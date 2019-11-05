@@ -1,5 +1,5 @@
 {
-  "name": "hathat",
+  "name": "mousehat",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "firebase-tools": "^7.6.2",
-    "node-sass": "^4.13.0"
+    "node-sass": "^4.13.0",
+    "tsc": "^1.20150623.0"
   }
 }

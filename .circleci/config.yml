@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Nodeの依存関係のインストール(yarn)"
+          name: "Nodeの依存関係(App)のインストール(yarn)"
           command: yarn
           working_directory: App
       - run:
@@ -21,6 +21,6 @@ jobs:
           working_directory: App
       - run:
           name: "Firebaseへのデプロイ"
-          command: ./node_modules/.bin/firebase deploy --project "$FIREBASE_PROJECT_ID" --token "$FIREBASE_TOKEN"
+          command: ./node_modules/.bin/firebase deploy --only hosting --project "$FIREBASE_PROJECT_ID" --token "$FIREBASE_TOKEN"
           working_directory: App
     

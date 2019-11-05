@@ -2,8 +2,8 @@ const functions = require('firebase-functions');
 const rp = require('request-promise');
 const cors = require('cors')({origin: true});
 
-const GOO_API_URL: string = 'https://labs.goo.ne.jp/api/morph';
-const TOKEN: string = functions.config().api.token;
+const GOO_API_URL = 'https://labs.goo.ne.jp/api/morph';
+const TOKEN = functions.config().api.token;
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -13,9 +13,9 @@ const TOKEN: string = functions.config().api.token;
 // });
 
 
-exports.doMorphological = functions.https.onRequest(async (req: any,res : any) => {
+exports.doMorphological = functions.https.onRequest(async (req,res) => {
   return cors(req,res, async () => {
-    const sentence: string = req.body.sentence;
+    const sentence = req.body.sentence;
 
     if (req.method !== "POST" || ! (sentence)) {
       res.json({
@@ -43,7 +43,7 @@ exports.doMorphological = functions.https.onRequest(async (req: any,res : any) =
   })
 })
 
-function postToGooAPI(sentence: string) {
+function postToGooAPI(sentence) {
   return rp({
     method:'POST',
     uri:GOO_API_URL,

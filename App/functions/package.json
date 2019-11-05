@@ -21,8 +21,7 @@
   },
   "devDependencies": {
     "@types/request-promise": "^4.1.44",
-    "firebase-functions-test": "^0.1.6",
-    "typescript": "^3.2.2"
+    "firebase-functions-test": "^0.1.6"
   },
   "private": true
 }
