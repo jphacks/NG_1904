@@ -16,10 +16,6 @@ jobs:
           command: yarn
           working_directory: App
       - run:
-          name: "Nodeの依存関係の(functions)インストール(yarn)"
-          command: yarn
-          working_directory: App/functions
-      - run:
           name: "ReacのBuild"
           command: yarn build
           working_directory: App
