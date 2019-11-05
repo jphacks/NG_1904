@@ -6,7 +6,7 @@ jobs:
     working_directory: ~/workdir
     branches:
         only:
-          - master
+          - maitake
     docker:
       - image: circleci/node:10.15.3
     steps:
