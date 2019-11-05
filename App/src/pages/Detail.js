@@ -14,7 +14,11 @@ export default function Detail() {
 
   function MakeList (props) {
     console.log(props.sentence);
-    return(props.sentence.map((text, index) => (text==="")?<span className="span-detail" key = {index} >{targetMuzzle}</span>:<Fragment key={index}>{text}</Fragment>));
+    if(props.sentence[0] === "" && props.sentence[1] === "" && props.sentence.length === 2){
+      return(<span className="span-detail" key = {0} >{targetMuzzle}</span>);
+    }else{
+      return(props.sentence.map((text, index) => (text==="")?<span className="span-detail" key = {index} >{targetMuzzle}</span>:<Fragment key={index}>{text}</Fragment>));
+    }
   } 
 
   function ShowList() {
