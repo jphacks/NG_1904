@@ -19,7 +19,7 @@ export default function Result() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const images = [ONE, TWO, THREE, FOUR, FIVE];
+    const images = [ ONE, TWO, THREE, FOUR, FIVE ];
 
     useEffect(() => {
         dispatch(setPage(PAGES.RESULTS));
