@@ -1,5 +1,3 @@
-import kuromoji from "kuromoji"
-
 // 形態素解析を行うためにAPIのエンドポイント
 // 実態はFirebase FunctionsをクッションにしてGooAPIを叩いている
 const MORPHOLOGICAL_API = ' https://us-central1-polished-zephyr-258013.cloudfunctions.net/doMorphological'
@@ -9,16 +7,6 @@ const MORPHOLOGICAL_API = ' https://us-central1-polished-zephyr-258013.cloudfunc
 const POS_FILTER_MUST = ["名詞","格助詞","括弧","句点","読点","空白","助数詞","助助数詞","冠数詞","英語接尾辞"]
 const POS_FILTER_MAYBE = ["引用助詞","連用助詞","終助詞"];
 const POS_FILTER = POS_FILTER_MUST.concat(POS_FILTER_MAYBE);
-
-export function morphologicalAnalysis(text) {
-  let promise = new Promise((resolve,reject) => {
-    kuromoji.builder({ dicPath: "/dict" }).build((err, tokenizer) => {
-      const tokens = tokenizer.tokenize(text);
-      resolve(tokens);
-    })
-  })
-  return promise
-}
 
 export function vibrate() {
   window.navigator.vibrate([500, 100, 100,50,100]);
