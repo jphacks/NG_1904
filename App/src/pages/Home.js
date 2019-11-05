@@ -9,7 +9,7 @@ import STOP from '../assets/img/stop.png';
 import '../App.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setPage, addWords, PAGES } from '../actions/actions' 
+import { setPage, addWords, PAGES, addSentences } from '../actions/actions' 
 
 //stateで管理すると2回目から録音ボタンを押しても何も始まらなくなるので設定
 //いずれ解決する必要あり
@@ -20,8 +20,8 @@ export default function Home() {
     const targetMuzzle = useSelector(state => state.setMuzzle.targetMuzzle);
     const dispatch = useDispatch();
     const [ isRecording,setIsRecording ] = useState(false);
+    const [ data, dispatcherReducer ] = useReducer((prevData,text) => {return [...prevData,text];}, []);
     const [ latestText,setLatestText ] = useState("");
-    const [data, dispatcherReducer] = useReducer((prevData,text) => prevData + text ,"");
     const history = useHistory();
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function Home() {
                     setLatestText(text)
                     memoryIndex = 0
                 }
-                let index = text.indexOf(targetMuzzle,memoryIndex)
+                let index = text.indexOf(targetMuzzle,memoryIndex);
                 if(index !== -1){
                     console.log("vibrate");//PCでの確認用
                     vibrate();
@@ -97,10 +97,13 @@ export default function Home() {
         staterecording = false;
         
         //ストップボタン押下時に録音データが存在した場合にページ遷移
-        if(data.trim().length !== 0) {
-            let tokens = await morphologicalAPIClient(data);
+        const str = data.join('');
+
+        if(str.trim().length !== 0) {
+            let tokens = await morphologicalAPIClient(str);
             let wc = wordCount(tokens["word_list"][0]);
             dispatch(addWords(wc));
+            dispatch(addSentences(data));
             history.push({pathname:'/result'})
         }else{
             dispatch(setPage(PAGES.RECORDS));
