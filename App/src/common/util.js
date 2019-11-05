@@ -24,7 +24,7 @@ export function vibrate() {
   window.navigator.vibrate([500, 100, 100,50,100]);
 }
 
-export function gooAPIClient(text) {
+export function morphologicalAPIClient(text) {
   return fetch(MORPHOLOGICAL_API,{
     method: 'POST',
     headers: {
