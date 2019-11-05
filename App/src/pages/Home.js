@@ -1,11 +1,12 @@
 import React,{ useState, useEffect, useReducer } from 'react';
-import './Home.css';
+
 import { useHistory } from 'react-router-dom';
 import { vibrate, gooAPIClient, wordCount } from '../common/util';/* morphologicalAnalysis */
 
 import MIC from '../assets/img/mic.png';
 import TALK from '../assets/img/talk.png';
 import STOP from '../assets/img/stop.png';
+import '../App.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setPage, addWords, PAGES, addSentences } from '../actions/actions' 
@@ -20,6 +21,7 @@ export default function Home() {
     const dispatch = useDispatch();
     const [ isRecording,setIsRecording ] = useState(false);
     const [ data, dispatcherReducer ] = useReducer((prevData,text) => {return [...prevData,text];}, []);
+    const [ latestText,setLatestText ] = useState("");
     const history = useHistory();
 
     useEffect(() => {
@@ -35,10 +37,13 @@ export default function Home() {
 
             recognize.onresult = (event) =>  {
                 let text = event.results[event.results.length-1][0].transcript;
+
+                // Chromeの挙動チェック用
+                console.log(event.results[event.results.length-1]["isFinal"],event.results[event.results.length-1][0].transcript)
                 if(event.results[event.results.length-1]["isFinal"]) {
                     dispatcherReducer(text);
-                    console.log(text);
-                    memoryIndex = 0;
+                    setLatestText(text)
+                    memoryIndex = 0
                 }
                 let index = text.indexOf(targetMuzzle,memoryIndex);
                 if(index !== -1){
@@ -105,6 +110,10 @@ export default function Home() {
         }
     }
 
+    function transitionSelect() {
+        history.push({pathname:"select"});
+    }
+
     let recordButton = ( isRecording )? (
         <button onClick={recordStop} className="App-body_reco-stop"><img src={STOP} alt="停止"/>録音終了</button>
     ):(
@@ -114,6 +123,12 @@ export default function Home() {
     return (
         <div className="App-body">
             CircleCIのテスト
+            <button onClick={transitionSelect}>
+                Select Button
+            </button>
+            <div>
+                {latestText}
+            </div>
             <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle}</span>」<br></br>を直そう</h1>
             {recordButton}
             <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>

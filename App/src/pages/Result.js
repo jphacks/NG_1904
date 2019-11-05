@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './Result.css';
 import { useHistory } from 'react-router-dom';
 
 import LEFT from '../assets/img/left-accessory.png';
@@ -10,6 +9,7 @@ import THREE from '../assets/img/3.png';
 import FOUR from '../assets/img/4.png';
 import FIVE from '../assets/img/5.png';
 import BG from '../assets/img/bg.png';
+import '../App.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setPage, setTargetMuzzle, PAGES } from '../actions/actions';

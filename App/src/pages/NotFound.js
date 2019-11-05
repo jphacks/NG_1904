@@ -1,8 +1,8 @@
 import React,{ useEffect } from 'react';
-import './NotFound.css';
 import { useHistory } from 'react-router-dom';
 
 import TALK from '../assets/img/talk.png';
+import '../App.scss';
 
 import { useDispatch } from 'react-redux';
 import { setPage, PAGES } from '../actions/actions';

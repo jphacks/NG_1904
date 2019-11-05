@@ -5,10 +5,19 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>MouseHat</title>
         <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
-        <link rel="manifest" href="/manifest.json">
         <meta name="theme-color" content="#000000" />
     </head>
     <body>
         <div id="root"></div>
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/serviceWorker.js', { scope: '/' })
+                .then(function(reg) {
+                    console.log("Success");
+                }).catch(function(error) {
+                    console.log('Error ' + error);
+                });
+            }
+        </script>
     </body>
 </html>
