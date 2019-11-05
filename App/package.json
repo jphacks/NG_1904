@@ -21,7 +21,6 @@
     "@types/react-redux": "^7.1.5",
     "@types/react-router-dom": "^5.1.2",
     "gh-pages": "^2.1.1",
-    "kuromoji": "^0.1.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-redux": "^7.1.1",

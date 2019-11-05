@@ -1,7 +1,7 @@
 import React,{ useState, useEffect, useReducer } from 'react';
 
 import { useHistory } from 'react-router-dom';
-import { vibrate, gooAPIClient, wordCount } from '../common/util';/* morphologicalAnalysis */
+import { vibrate, morphologicalAPIClient, wordCount } from '../common/util';/* morphologicalAnalysis */
 
 import MIC from '../assets/img/mic.png';
 import TALK from '../assets/img/talk.png';
@@ -100,7 +100,7 @@ export default function Home() {
         const str = data.join('');
 
         if(str.trim().length !== 0) {
-            let tokens = await gooAPIClient(str);
+            let tokens = await morphologicalAPIClient(str);
             let wc = wordCount(tokens["word_list"][0]);
             dispatch(addWords(wc));
             dispatch(addSentences(data));
