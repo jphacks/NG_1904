@@ -26,7 +26,7 @@ export default function Home() {
 
     useEffect(() => {
         console.log("Effect is Called");
-        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
         let recognize = new window.SpeechRecognition();
 
         if(isRecording){
