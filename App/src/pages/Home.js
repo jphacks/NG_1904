@@ -10,6 +10,7 @@ import '../App.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setPage, addWords, PAGES, addSentences } from '../actions/actions' 
+import { clearInterval } from 'timers';
 
 //stateで管理すると2回目から録音ボタンを押しても何も始まらなくなるので設定
 //いずれ解決する必要あり
@@ -28,44 +29,54 @@ export default function Home() {
         console.log("Effect is Called");
         window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
         let recognize = new window.SpeechRecognition();
+        recognize.lang = "ja-JP";
+
+        let intervalId;
 
         if(isRecording){
-            recognize.interimResults = true;
-            recognize.lang = "ja-JP";
+            // recognize.interimResults = true;
+            intervalId = setInterval(() => {
+                recognize.stop();
+            },3000)
 
-            let memoryIndex = 0;
+            // let memoryIndex = 0;
 
             recognize.onresult = (event) =>  {
-                let text = event.results[event.results.length-1][0].transcript;
+                const last = event.results.length - 1;
+                const text = event.results[last][0].transcript;
+                console.log(text);
 
-                // Chromeの挙動チェック用
-                console.log(event.results[event.results.length-1]["isFinal"],event.results[event.results.length-1][0].transcript);
-                if(event.results[event.results.length-1]["isFinal"]) {
-                    dispatcherReducer(text);
-                    setLatestText(text);
-                    memoryIndex = 0
-                }
-                let index = text.indexOf(targetMuzzle,memoryIndex);
+                let index = text.indexOf(targetMuzzle);
                 if(index !== -1){
                     console.log("vibrate");//PCでの確認用
                     vibrate();
-                    memoryIndex += text.length - 1;
                 }
+                dispatcherReducer(text);
+                setLatestText(text);
             }
 
             recognize.onend = (event) => {
+                console.log("onend")
                 if(staterecording){
                     recognize.stop();
                     recognize.start();
                 }
             }
+
             recognize.start();
+        } else {
+            if(intervalId !== undefined) {
+                clearInterval(intervalId);
+            }
         }
 
         return () => {
             if(recognize != null) {
                 recognize.abort();
             };
+            if(! intervalId) {
+                clearInterval(intervalId);
+            }
         }
         //targetMuzzleは更新されないので依存関係に含めていい（はず）
     },[ isRecording, dispatcherReducer, targetMuzzle ]);
