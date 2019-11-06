@@ -64,3 +64,44 @@ export function wordCount(words) {
 
   return wordCount.slice(0,5);
 }
+
+export function setData (data) {
+  if (storageAvailable('localStorage')) {
+    console.log("わあい! localStorage をちゃんと使用できます");
+    if(localStorage.getItem('everUsed')) {
+      const text = JSON.parse(localStorage.getItem('muzzles'));
+      if(text.indexOf(data)===-1){
+        text.push(data);
+        localStorage.setItem('muzzles', JSON.stringify(text));
+        console.log(localStorage.getItem('muzzles'));
+      }
+    }else{
+    }
+  }
+  else {
+    console.log("ローカルストレージを使用できません");
+  }
+}
+
+export function storageAvailable (type) {
+	try {
+		var storage = window[type],
+			x = '__storage_test__';
+		storage.setItem(x, x);
+		storage.removeItem(x);
+		return true;
+	}catch(e) {
+    return e instanceof DOMException && (
+      // everything except Firefox
+      e.code === 22 ||
+      // Firefox
+      e.code === 1014 ||
+      // test name field too, because code might not be present
+      // everything except Firefox
+      e.name === 'QuotaExceededError' ||
+      // Firefox
+      e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+    // acknowledge QuotaExceededError only if there's something already stored
+    storage.length !== 0;
+  }
+}
