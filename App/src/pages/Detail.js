@@ -2,6 +2,7 @@ import React ,{ Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './Detail.css';
+import { spawn } from 'child_process';
 
 export default function Detail() {
   const history = useHistory();
@@ -14,28 +15,39 @@ export default function Detail() {
 
   function MakeList (props) {
     console.log(props.sentence);
-    if(props.sentence[0] === "" && props.sentence[1] === "" && props.sentence.length === 2){
-      return(<span className="span-detail" key = {0} >{targetMuzzle}</span>);
-    }else{
-      return(props.sentence.map((text, index) => (text==="")?<span className="span-detail" key = {index} >{targetMuzzle}</span>:<Fragment key={index}>{text}</Fragment>));
+    const list = [];
+    const regexp = new RegExp('(' + targetMuzzle + ')','g');
+    const texts = props.sentence.split(regexp);
+    var result = texts.filter(function( text ) {
+      return text !== '';
+    });
+    
+    for(let text of result) {
+      if(text !== targetMuzzle){
+        list.push(
+          <span>{text}</span>
+        )
+      }else{
+        list.push(
+          <span className="span-detail">{targetMuzzle}</span>
+        )
+      }
     }
+    return(<>{list}</>);
   } 
 
   function ShowList() {
     console.log(targetMuzzle)
     console.log(sentences)
+
     if(targetMuzzle !== undefined && sentences !== undefined){
-      //文字列の先頭にtargetMuzzleが含まれるか確認する必要がある
-      let j=0;
       let sentencesShow = [];
       for(let i=0;i<sentences.length;i++){
         if(sentences[i].indexOf(targetMuzzle) !== -1){
-          const text = sentences[i].trim().replace(/\s+/g, "").split(targetMuzzle);
-          sentencesShow[j]=text;
-          j++;
+          const text = sentences[i].trim().replace(/\s+/g, "");
+          sentencesShow.push(text);
         }
       }
-      //console.log(sentencesShow);
       return (sentencesShow.map((sentence, index) => <li key = {index}><MakeList sentence={sentence}/></li>));
     }else{
       return <Fragment key={0}></Fragment>
