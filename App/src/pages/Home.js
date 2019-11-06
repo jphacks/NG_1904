@@ -39,10 +39,10 @@ export default function Home() {
                 let text = event.results[event.results.length-1][0].transcript;
 
                 // Chromeの挙動チェック用
-                console.log(event.results[event.results.length-1]["isFinal"],event.results[event.results.length-1][0].transcript)
+                console.log(event.results[event.results.length-1]["isFinal"],event.results[event.results.length-1][0].transcript);
                 if(event.results[event.results.length-1]["isFinal"]) {
                     dispatcherReducer(text);
-                    setLatestText(text)
+                    setLatestText(text);
                     memoryIndex = 0
                 }
                 let index = text.indexOf(targetMuzzle,memoryIndex);
@@ -101,9 +101,17 @@ export default function Home() {
 
         if(str.trim().length !== 0) {
             let tokens = await morphologicalAPIClient(str);
+            console.info(tokens);
             let wc = wordCount(tokens["word_list"][0]);
             dispatch(addWords(wc));
             dispatch(addSentences(data));
+
+            let count = 0;
+            for(let j of data){
+                count += (j.match(new RegExp(targetMuzzle, "g")) || []).length ;
+            }
+            console.log("yagi   :" + count);
+            
             history.push({pathname:'/result'})
         }else{
             dispatch(setPage(PAGES.RECORDS));
