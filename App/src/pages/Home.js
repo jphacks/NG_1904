@@ -34,12 +34,6 @@ export default function Home() {
         let intervalId;
 
         if(isRecording){
-            // recognize.interimResults = true;
-            intervalId = setInterval(() => {
-                recognize.stop();
-            },3000)
-
-            // let memoryIndex = 0;
 
             recognize.onresult = (event) =>  {
                 const last = event.results.length - 1;
@@ -55,13 +49,34 @@ export default function Home() {
                 setLatestText(text);
             }
 
+            recognize.onspeechstart = (event) => {
+                console.log("Speech Start");
+                intervalId = setTimeout(() => {
+                    console.log("Speech stop")
+                    recognize.stop();
+                },6000)
+            }
+
             recognize.onend = (event) => {
                 console.log("onend")
+                if(! intervalId) {
+                    clearInterval(intervalId);
+                }
                 if(staterecording){
                     recognize.stop();
                     recognize.start();
                 }
             }
+
+            // recognize.onspeechend = (event) => {
+            //     if(! intervalId) {
+            //         clearInterval(intervalId);
+            //     }
+            //     // recognize.interimResults = true;
+            //     intervalId = setInterval(() => {
+            //         recognize.stop();
+            //     },3000)
+            // }
 
             recognize.start();
         } else {
@@ -130,6 +145,8 @@ export default function Home() {
     }
 
     function transitionSelect() {
+        setIsRecording(false);
+        staterecording = false;
         history.push({pathname:"select"});
     }
 
