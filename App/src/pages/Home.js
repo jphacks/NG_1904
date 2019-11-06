@@ -30,7 +30,6 @@ export default function Home() {
         let recognize = new window.SpeechRecognition();
 
         if(isRecording){
-            recognize.interimResults = true;
             recognize.lang = "ja-JP";
 
             let memoryIndex = 0;
@@ -119,6 +118,8 @@ export default function Home() {
     }
 
     function transitionSelect() {
+        setIsRecording(true);
+        staterecording = true;
         history.push({pathname:"select"});
     }
 
