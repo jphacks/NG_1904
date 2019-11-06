@@ -1,8 +1,7 @@
 import React ,{ Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import './Detail.css';
-import { spawn } from 'child_process';
+import '../App.scss';
 
 export default function Detail() {
   const history = useHistory();

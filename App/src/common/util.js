@@ -1,6 +1,6 @@
-import kuromoji from "kuromoji"
-
-const GOO_API_URL = 'https://labs.goo.ne.jp/api/morph'
+// 形態素解析を行うためにAPIのエンドポイント
+// 実態はFirebase FunctionsをクッションにしてGooAPIを叩いている
+const MORPHOLOGICAL_API = ' https://us-central1-polished-zephyr-258013.cloudfunctions.net/doMorphological'
 //名詞などの口癖に関係のない形態素要素を削除
 //https://labs.goo.ne.jp/api/jp/morphological-analysis-pos_filter/
 //"名詞接尾辞"は”わかりみが深い”の”み”などの検出に使うのでフィルタしてない
@@ -8,28 +8,18 @@ const POS_FILTER_MUST = ["名詞","格助詞","括弧","句点","読点","空白
 const POS_FILTER_MAYBE = ["引用助詞","連用助詞","終助詞"];
 const POS_FILTER = POS_FILTER_MUST.concat(POS_FILTER_MAYBE);
 
-export function morphologicalAnalysis(text) {
-  let promise = new Promise((resolve,reject) => {
-    kuromoji.builder({ dicPath: "/dict" }).build((err, tokenizer) => {
-      const tokens = tokenizer.tokenize(text);
-      resolve(tokens);
-    })
-  })
-  return promise
-}
-
 export function vibrate() {
   window.navigator.vibrate([500, 100, 100,50,100]);
 }
 
-export function gooAPIClient(text) {
-  return fetch(GOO_API_URL,{
+export function morphologicalAPIClient(text) {
+  return fetch(MORPHOLOGICAL_API,{
     method: 'POST',
     headers: {
       "Content-Type": "application/json; charset=utf-8",
+      "Access-Control-Allow-Origin": "*"
     },
     body: JSON.stringify({
-      app_id:process.env.REACT_APP_GOO_API_TOKEN,
       sentence:text
     }), 
   }).then(response => response.json());

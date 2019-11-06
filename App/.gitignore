@@ -2,6 +2,7 @@ node_modules
 build
 /src/pages/test.json
 /public/dict/*
+/public/.well-known
 .env
 
 .firebase
