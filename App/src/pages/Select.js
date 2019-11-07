@@ -49,6 +49,11 @@ export default function Select(props) {
     setMuzzleText('');
   }
 
+  function goBackHome () {
+    dispatch(setTargetMuzzle("口癖"));
+    histoy.push({pathname:'home'});
+  }
+
   const muzzleListElement = muzzleList.map(muzzle => {
     return (
       <li className="List-item" key={muzzle} onClick={() => { setMuzzle(muzzle) }}>
@@ -61,7 +66,7 @@ export default function Select(props) {
 
   return (
     <div className="list-bg">
-      <button className="back-button">
+      <button className="back-button" onClick={() => goBackHome()}>
         <i class="fas fa-chevron-left"></i>TOP
       </button>
       <h1 className="App-body_rank-header select-header">口癖<span>を</span>選ぼう</h1>
