@@ -34,10 +34,16 @@
     justify-content: space-between;
 }
 
+.List-item_rank {
+    width: 2rem;
+}
+
 .List-item_muzzle-word {
     font-weight: bold;
     font-size: 1.5rem;
     padding: 0 1rem;
+    text-align: left;
+    width: 7.5rem;
 }
 
 .List-item_muzzle-count {
@@ -45,6 +51,7 @@
     font-weight: bold;
     margin: 0;
     width: 3.5rem;
+    text-align: right;
 }
 
 .List-item_muzzle-count-txt {

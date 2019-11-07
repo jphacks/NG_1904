@@ -46,7 +46,7 @@ export default function Result() {
     ):(
         countedWords.map((data, index) => (
             <li key={index} className="List-item" onClick={() => onClickList(data.str)}>
-                <img src={images[index]} alt="順位" />
+                <img className="List-item_rank" src={images[index]} alt="順位" />
                 <span className="List-item_muzzle-word">
                     {data.str}
                 </span>
