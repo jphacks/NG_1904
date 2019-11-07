@@ -34,7 +34,6 @@ export default function Home() {
         let intervalId;
 
         if(isRecording){
-
             recognize.onresult = (event) =>  {
                 const last = event.results.length - 1;
                 const text = event.results[last][0].transcript;
@@ -132,13 +131,18 @@ export default function Home() {
             dispatch(addWords(wc));
             dispatch(addSentences(data));
 
+            /*
             let count = 0;
             for(let j of data){
                 count += (j.match(new RegExp(targetMuzzle, "g")) || []).length ;
             }
             console.log("yagi   :" + count);
-            
-            history.push({pathname:'/result'})
+            */
+           
+            //解析後に値がない場合も遷移しない
+            if(wc.length!==0){
+                history.push({pathname:'/result'})
+            }
         }else{
             dispatch(setPage(PAGES.RECORDS));
         }

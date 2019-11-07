@@ -21,17 +21,18 @@ export default function Detail() {
       return text !== '';
     });
     
-    for(let text of result) {
+    result.forEach((text, index) => {
       if(text !== targetMuzzle){
         list.push(
-          <span>{text}</span>
+          <span key={index}>{text}</span>
         )
       }else{
         list.push(
-          <span className="span-detail">{targetMuzzle}</span>
+          <span key={index} className="span-detail">{targetMuzzle}</span>
         )
       }
-    }
+    });
+
     return(<>{list}</>);
   } 
 
