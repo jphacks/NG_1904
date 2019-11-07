@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useReducer } from 'react';
+import React,{ useState, useEffect, useReducer, useMemo } from 'react';
 
 import { useHistory } from 'react-router-dom';
 import { vibrate, morphologicalAPIClient, wordCount } from '../common/util';/* morphologicalAnalysis */
@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPage, addWords, PAGES, addSentences } from '../actions/actions' 
 import { clearInterval } from 'timers';
 
+import Loader from 'react-loaders'
+
 //stateで管理すると2回目から録音ボタンを押しても何も始まらなくなるので設定
 //いずれ解決する必要あり
 let staterecording = false;
@@ -21,9 +23,16 @@ export default function Home() {
     const targetMuzzle = useSelector(state => state.setMuzzle.targetMuzzle);
     const dispatch = useDispatch();
     const [ isRecording,setIsRecording ] = useState(false);
+    const [ isLoading,setIsLoading ] = useState(false)
     const [ data, dispatcherReducer ] = useReducer((prevData,text) => {return [...prevData,text];}, []);
     const [ latestText,setLatestText ] = useState("");
     const history = useHistory();
+
+    const loadingStyle = useMemo(() => {
+        return {
+            display: isLoading ? "flex" : "none"
+        }
+    },[ isLoading ])
 
     useEffect(() => {
         console.log("Effect is Called");
@@ -66,16 +75,6 @@ export default function Home() {
                     recognize.start();
                 }
             }
-
-            // recognize.onspeechend = (event) => {
-            //     if(! intervalId) {
-            //         clearInterval(intervalId);
-            //     }
-            //     // recognize.interimResults = true;
-            //     intervalId = setInterval(() => {
-            //         recognize.stop();
-            //     },3000)
-            // }
 
             recognize.start();
         } else {
@@ -125,6 +124,7 @@ export default function Home() {
         const str = data.join('');
 
         if(str.trim().length !== 0) {
+            setIsLoading(true);
             let tokens = await morphologicalAPIClient(str);
             console.info(tokens);
             let wc = wordCount(tokens["word_list"][0]);
@@ -138,9 +138,10 @@ export default function Home() {
             }
             console.log("yagi   :" + count);
             */
-           
             //解析後に値がない場合も遷移しない
             if(wc.length!==0){
+           setIsLoading(false);
+
                 history.push({pathname:'/result'})
             }
         }else{
@@ -162,15 +163,18 @@ export default function Home() {
 
     return (
         <div className="App-body">
-            CircleCIのテスト
+            <div className="loader-wraper" style={loadingStyle} >
+                <Loader className="loader-animation" type="pacman" loaded={isLoading}/>
+            </div>
             <button onClick={transitionSelect}>
                 Select Button
             </button>
+            
             <div>
                 {latestText}
             </div>
             <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle}</span>」<br></br>を直そう</h1>
-            {recordButton}
+                {recordButton}
             <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>
         </div>
     );
