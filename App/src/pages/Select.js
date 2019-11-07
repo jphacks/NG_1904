@@ -64,16 +64,19 @@ export default function Select(props) {
       <button className="back-button">
         <i class="fas fa-chevron-left"></i>TOP
       </button>
-      <h1 className="App-body_rank-header">口癖を選ぶ</h1>
+      <h1 className="App-body_rank-header select-header">口癖<span>を</span>選ぼう</h1>
       <div className="App-body_rank-list">
         <ul className="List">
           {muzzleListElement}
         </ul>
       </div>
-      <input onChange={changeMuzzleText} value={muzzleText} type="text"/>
-      <button onClick={pushUserSelectMuzzle}>
-        Submit
-      </button>
+      <div className="select_input">
+        <span className="select_input-before"></span>
+        <input onChange={changeMuzzleText} value={muzzleText} type="text"/>
+        <button onClick={pushUserSelectMuzzle}>
+          口癖を追加する
+        </button>
+      </div>
     </div>
   )
 }
