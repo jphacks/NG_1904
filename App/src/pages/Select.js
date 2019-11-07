@@ -59,7 +59,7 @@ export default function Select(props) {
 
   return (
     <div>
-      現状ボタンには見えないけど，押すと口癖をセットしてホーム画面に戻るよ
+      <a ><i class="fas fa-chevron-left"></i>TOP</a>
       <ul>
         {muzzleListElement}
       </ul>

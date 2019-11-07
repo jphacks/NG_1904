@@ -10,7 +10,7 @@ export default function Detail() {
 
   function transitionPrev() {
     history.goBack();
-  } 
+  }
 
   function MakeList (props) {
     console.log(props.sentence);
@@ -20,7 +20,7 @@ export default function Detail() {
     var result = texts.filter(function( text ) {
       return text !== '';
     });
-    
+
     for(let text of result) {
       if(text !== targetMuzzle){
         list.push(
@@ -33,7 +33,7 @@ export default function Detail() {
       }
     }
     return(<>{list}</>);
-  } 
+  }
 
   function ShowList() {
     console.log(targetMuzzle)
@@ -56,7 +56,7 @@ export default function Detail() {
   return (
     <>
     <button onClick={transitionPrev}>
-      戻る
+    <i class="fas fa-chevron-left"></i>戻る
     </button>
     <ol>
       <ShowList/>

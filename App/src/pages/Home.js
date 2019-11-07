@@ -9,7 +9,7 @@ import STOP from '../assets/img/stop.png';
 import '../App.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setPage, addWords, PAGES, addSentences } from '../actions/actions' 
+import { setPage, addWords, PAGES, addSentences } from '../actions/actions'
 
 //stateで管理すると2回目から録音ボタンを押しても何も始まらなくなるので設定
 //いずれ解決する必要あり
@@ -95,7 +95,7 @@ export default function Home() {
         //将来的にまとめたい
         setIsRecording(false);
         staterecording = false;
-        
+
         //ストップボタン押下時に録音データが存在した場合にページ遷移
         const str = data.join('');
 
@@ -111,7 +111,7 @@ export default function Home() {
                 count += (j.match(new RegExp(targetMuzzle, "g")) || []).length ;
             }
             console.log("yagi   :" + count);
-            
+
             history.push({pathname:'/result'})
         }else{
             dispatch(setPage(PAGES.RECORDS));
@@ -130,16 +130,14 @@ export default function Home() {
 
     return (
         <div className="App-body">
-            CircleCIのテスト
-            <button onClick={transitionSelect}>
-                Select Button
-            </button>
             <div>
                 {latestText}
             </div>
             <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle}</span>」<br></br>を直そう</h1>
             {recordButton}
-            <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>
+            <button className="App-body_select" onClick={transitionSelect}>
+                口癖を選択する
+            </button>
         </div>
     );
 }
