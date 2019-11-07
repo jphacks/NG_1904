@@ -52,7 +52,7 @@ export default function Select(props) {
   const muzzleListElement = muzzleList.map(muzzle => {
     return (
       <li className="List-item" key={muzzle} onClick={() => { setMuzzle(muzzle) }}>
-        <p className="List-item_muzzle-word">
+        <p className="select_muzzle-word">
           {muzzle}
         </p>
       </li>
