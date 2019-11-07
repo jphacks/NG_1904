@@ -51,23 +51,32 @@ export default function Select(props) {
 
   const muzzleListElement = muzzleList.map(muzzle => {
     return (
-      <li key={muzzle} onClick={() => { setMuzzle(muzzle) }}>
-        {muzzle}
+      <li className="List-item" key={muzzle} onClick={() => { setMuzzle(muzzle) }}>
+        <p className="select_muzzle-word">
+          {muzzle}
+        </p>
       </li>
     )
   })
 
   return (
-    <div>
-      現状ボタンには見えないけど，押すと口癖をセットしてホーム画面に戻るよ
-      <ul>
-        {muzzleListElement}
-      </ul>
-
-      <input onChange={changeMuzzleText} value={muzzleText} type="text"/>
-      <button onClick={pushUserSelectMuzzle}>
-        Submit
+    <div className="list-bg">
+      <button className="back-button">
+        <i class="fas fa-chevron-left"></i>TOP
       </button>
+      <h1 className="App-body_rank-header select-header">口癖<span>を</span>選ぼう</h1>
+      <div className="App-body_rank-list">
+        <ul className="List">
+          {muzzleListElement}
+        </ul>
+      </div>
+      <div className="select_input">
+        <span className="select_input-before"></span>
+        <input onChange={changeMuzzleText} value={muzzleText} type="text"/>
+        <button onClick={pushUserSelectMuzzle}>
+          口癖を追加する
+        </button>
+      </div>
     </div>
   )
 }

@@ -25,35 +25,55 @@
     display: flex;
     align-items: center;
     background-color: #fff;
-    padding: 0.6rem 1rem;
+    padding: 0 0 0 1rem;
     margin: 0.4rem 0;
     border-radius: 12px;
     width: 100%;
     box-sizing: border-box;
-    box-shadow: 0px 6px 10px rgba(5, 2, 2, 0.14);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14);
+    justify-content: space-between;
 }
 
-.List-item:nth-child(1){
-    padding: 1.5rem 1rem;
+.List-item_rank {
+    width: 2rem;
 }
 
 .List-item_muzzle-word {
-    margin-left: 1.5rem;
     font-weight: bold;
     font-size: 1.5rem;
+    padding: 0 1rem;
+    text-align: left;
+    width: 7.5rem;
 }
 
 .List-item_muzzle-count {
     font-size: 1.5rem;
     font-weight: bold;
     margin: 0;
-    position: absolute;
-    right: 3rem;
+    width: 3.5rem;
+    text-align: right;
 }
 
 .List-item_muzzle-count-txt {
     font-size: 0.75rem;
     margin-left: 0.1rem;
+}
+
+.List-item_go-to-right{
+    display: flex;
+    align-items: center;
+}
+
+.List-item_about {
+    font-size: 1.25rem;
+    font-weight: bold;
+    background-color:$main-color;
+    border: none;
+    color: white;
+    padding: 1.5rem 1rem;
+    margin-left: 1rem;
+    border-radius: 0 12px 12px 0;
+    width: 6rem;
 }
 
 .App-body_rank-head {
@@ -94,7 +114,7 @@
     top: -374px;
     border-radius: 50%;
     z-index: 0;
-    background: #FBC438;
+    background: $main-color;
     width: 700px;
     height: 700px;
 } */

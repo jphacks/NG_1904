@@ -2,6 +2,12 @@ button:focus {
     outline:0;
 }
 
+body {
+    margin: 0;
+    max-height: 100%;
+    color: $text-color;
+}
+
 .App {
     background-color: #282c34;
 }
@@ -54,7 +60,20 @@ button:focus {
 
 .App-body_reco-header-muzzle {
     font-size:3rem;
-    background: linear-gradient(transparent 60%, #FBC438 40%);
+    background: linear-gradient(transparent 60%,$main-color 40%);
+}
+
+.App-body_select {
+    width: 80vw;
+    padding: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    background-color: $main-color;
+    color: white;
+    border-style: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 6rem;
+    margin: 4rem auto;
 }
 
 /* Record画面のボタン */
@@ -63,8 +82,8 @@ button:focus {
     font-weight: bold;
     font-size: 1.25rem;
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     border: 18px solid;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2), 0px 1px 18px rgba(0, 0, 0, 0.12), 0px 6px 10px rgba(0, 0, 0, 0.14);
     display: flex;
@@ -78,14 +97,14 @@ button:focus {
 }
 
 .App-body_reco-start {
-    color: #fbc438;
+    color: $main-color;
     background-color: #ffffff;
-    border-color: #FBC438;
+    border-color: $main-color;
 }
 
 .App-body_reco-stop {
     color: #ffffff;
-    background-color: #FBC438;
+    background-color: $main-color;
     border-color: #ffffff;
 }
 

@@ -46,24 +46,25 @@ export default function Result() {
     ):(
         countedWords.map((data, index) => (
             <li key={index} className="List-item" onClick={() => onClickList(data.str)}>
-                <img src={images[index]} alt="順位" />
+                <img className="List-item_rank" src={images[index]} alt="順位" />
                 <span className="List-item_muzzle-word">
                     {data.str}
                 </span>
-                <p className="List-item_muzzle-count">
-                    {data.count}
-                    <span className="List-item_muzzle-count-txt">
-                        回
-                    </span>
-
+                <div className="List-item_go-to-right">
+                    <p className="List-item_muzzle-count">
+                        {data.count}
+                        <span className="List-item_muzzle-count-txt">
+                            回
+                        </span>
+                    </p>
                     {/* 仮説のボタンです */}
-                    <button onClick={(e) => {transitionDetail(e,data.str)}}>
+                    <button className="List-item_about" onClick={(e) => {transitionDetail(e,data.str)}}>
                         詳細
                     </button>
-                </p>
+                </div>
             </li>
         ))
-        
+
     );
 
     let style = {
