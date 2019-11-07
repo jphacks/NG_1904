@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import { AnimatedSwitch } from 'react-router-transition'
 import Home from './pages/Home';
 import Result from './pages/Result';
