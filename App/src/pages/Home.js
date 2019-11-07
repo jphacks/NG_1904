@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useReducer } from 'react';
+import React,{ useState, useEffect, useReducer, useMemo } from 'react';
 
 import { useHistory } from 'react-router-dom';
 import { vibrate, morphologicalAPIClient, wordCount } from '../common/util';/* morphologicalAnalysis */
@@ -11,19 +11,32 @@ import '../App.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPage, addWords, PAGES, addSentences } from '../actions/actions' 
 import { clearInterval } from 'timers';
+<<<<<<< HEAD
+=======
+
+import Loader from 'react-loaders'
+>>>>>>> master
 
 //stateで管理すると2回目から録音ボタンを押しても何も始まらなくなるので設定
 //いずれ解決する必要あり
 let staterecording = false;
 
 export default function Home() {
+    console.log(Loader);
     //const currentPage = useSelector(state => state.setPages.currentPage);
     const targetMuzzle = useSelector(state => state.setMuzzle.targetMuzzle);
     const dispatch = useDispatch();
     const [ isRecording,setIsRecording ] = useState(false);
+    const [ isLoading,setIsLoading ] = useState(false)
     const [ data, dispatcherReducer ] = useReducer((prevData,text) => {return [...prevData,text];}, []);
     const [ latestText,setLatestText ] = useState("");
     const history = useHistory();
+
+    const loadingStyle = useMemo(() => {
+        return {
+            display: isLoading ? "flex" : "none"
+        }
+    },[ isLoading ])
 
     useEffect(() => {
         console.log("Effect is Called");
@@ -34,13 +47,6 @@ export default function Home() {
         let intervalId;
 
         if(isRecording){
-            // recognize.interimResults = true;
-            intervalId = setInterval(() => {
-                recognize.stop();
-            },3000)
-
-            // let memoryIndex = 0;
-
             recognize.onresult = (event) =>  {
                 const last = event.results.length - 1;
                 const text = event.results[last][0].transcript;
@@ -55,8 +61,19 @@ export default function Home() {
                 setLatestText(text);
             }
 
+            recognize.onspeechstart = (event) => {
+                console.log("Speech Start");
+                intervalId = setTimeout(() => {
+                    console.log("Speech stop")
+                    recognize.stop();
+                },6000)
+            }
+
             recognize.onend = (event) => {
                 console.log("onend")
+                if(! intervalId) {
+                    clearInterval(intervalId);
+                }
                 if(staterecording){
                     recognize.stop();
                     recognize.start();
@@ -111,17 +128,34 @@ export default function Home() {
         const str = data.join('');
 
         if(str.trim().length !== 0) {
+            setIsLoading(true);
             let tokens = await morphologicalAPIClient(str);
+            console.info(tokens);
             let wc = wordCount(tokens["word_list"][0]);
             dispatch(addWords(wc));
             dispatch(addSentences(data));
-            history.push({pathname:'/result'})
+
+            /*
+            let count = 0;
+            for(let j of data){
+                count += (j.match(new RegExp(targetMuzzle, "g")) || []).length ;
+            }
+            console.log("yagi   :" + count);
+            */
+            //解析後に値がない場合も遷移しない
+            if(wc.length!==0){
+           setIsLoading(false);
+
+                history.push({pathname:'/result'})
+            }
         }else{
             dispatch(setPage(PAGES.RECORDS));
         }
     }
 
     function transitionSelect() {
+        setIsRecording(false);
+        staterecording = false;
         history.push({pathname:"select"});
     }
 
@@ -134,14 +168,18 @@ export default function Home() {
     return (
         <div className="App-body">
             CircleCIのテスト
+            <div className="loader-wraper" style={loadingStyle} >
+                <Loader className="loader-animation" type="pacman" loaded={isLoading}/>
+            </div>
             <button onClick={transitionSelect}>
                 Select Button
             </button>
+            
             <div>
                 {latestText}
             </div>
             <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle}</span>」<br></br>を直そう</h1>
-            {recordButton}
+                {recordButton}
             <img className="App-body_reco-img" src={TALK} alt="会話する人間"/>
         </div>
     );

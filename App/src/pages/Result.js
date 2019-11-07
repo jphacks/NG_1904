@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { setData } from '../common/util';
 
 import LEFT from '../assets/img/left-accessory.png';
 import RIGHT from '../assets/img/right-accessory.png';
@@ -26,6 +27,7 @@ export default function Result() {
     },[ dispatch ])
 
     function onClickList (dataSend) {
+        setData(dataSend);
         dispatch(setTargetMuzzle(dataSend));
         history.push({pathname:'/home'});
     }
