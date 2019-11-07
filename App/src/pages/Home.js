@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { vibrate, morphologicalAPIClient, wordCount } from '../common/util';/* morphologicalAnalysis */
 
 import MIC from '../assets/img/mic.png';
-import TALK from '../assets/img/talk.png';
 import STOP from '../assets/img/stop.png';
 import '../App.scss';
 
