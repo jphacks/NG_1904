@@ -1,5 +1,6 @@
 import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
+import { AnimatedSwitch } from 'react-router-transition'
 import Home from './pages/Home';
 import Result from './pages/Result';
 import Select from './pages/Select';
@@ -12,14 +13,19 @@ import { Provider } from 'react-redux';
 const App = ({ store }) => (
   <Provider store={store}>
     <HashRouter>
-      <Switch>
+      <AnimatedSwitch 
+        atEnter={{ opacity: 0 }}
+        atLeave={{ opacity: 0 }}
+        atActive={{ opacity: 1 }}
+        className="switch-wrapper">
+          
         <Route exact path="/" component={Home} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/select" component={Select}/>
         <Route exact path="/result" component={Result}/>
         <Route exact path="/detail" component={Detail}/>
         <Route component={NotFound}/>
-      </Switch>
+      </AnimatedSwitch>
     </HashRouter>
   </Provider>
 );
