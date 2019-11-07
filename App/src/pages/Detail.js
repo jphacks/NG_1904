@@ -49,14 +49,14 @@ export default function Detail() {
           sentencesShow.push(text);
         }
       }
-      return (sentencesShow.map((sentence, index) => <li className="hoge" key = {index}><MakeList sentence={sentence}/></li>));
+      return (sentencesShow.map((sentence, index) => <li className="detail_content-text" key = {index}><MakeList sentence={sentence}/></li>));
     }else{
       return <Fragment key={0}></Fragment>
     }
   };
 
   return (
-    <div>
+    <div className="detail">
       <div className="detail_header">
         <button className="back-button" onClick={transitionPrev}>
           <i class="fas fa-chevron-left"></i>戻る
@@ -66,6 +66,10 @@ export default function Detail() {
             <i class="fas fa-redo-alt"></i>もう１回
         </button>
       </div>
+
+      <p>のログ</p>
+      <hr></hr>
+
       <ol className="detail_content">
         <ShowList/>
       </ol>

@@ -6,6 +6,8 @@
 
 .detail_content{
     font-size: 1.25rem;
+    width: 90vw;
+    margin: 1rem auto;
 }
 
 .detail_header{
@@ -43,4 +45,19 @@
 .more-button i {
     font-size: 1.5rem;
     margin: 0 auto 0.25rem;
+}
+
+.detail p {
+    color: $gray-color;
+    font-size: 1.25rem;
+    width: 90vw;
+    margin: 1rem auto;
+}
+.detail hr {
+    width: 90vw;
+    margin: 0 auto 1.5rem;;
+}
+
+.detail_content-text {
+    margin-bottom: 1.5rem;
 }
