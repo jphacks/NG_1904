@@ -11,18 +11,14 @@ import '../App.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPage, addWords, PAGES, addSentences } from '../actions/actions' 
 import { clearInterval } from 'timers';
-<<<<<<< HEAD
-=======
 
 import Loader from 'react-loaders'
->>>>>>> master
 
 //stateで管理すると2回目から録音ボタンを押しても何も始まらなくなるので設定
 //いずれ解決する必要あり
 let staterecording = false;
 
 export default function Home() {
-    console.log(Loader);
     //const currentPage = useSelector(state => state.setPages.currentPage);
     const targetMuzzle = useSelector(state => state.setMuzzle.targetMuzzle);
     const dispatch = useDispatch();
@@ -167,7 +163,6 @@ export default function Home() {
 
     return (
         <div className="App-body">
-            CircleCIのテスト
             <div className="loader-wraper" style={loadingStyle} >
                 <Loader className="loader-animation" type="pacman" loaded={isLoading}/>
             </div>
