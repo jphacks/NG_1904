@@ -55,12 +55,12 @@ export default function Detail() {
 
   return (
     <>
-    <button onClick={transitionPrev}>
-    <i class="fas fa-chevron-left"></i>戻る
-    </button>
-    <ol>
-      <ShowList/>
-    </ol>
+        <button className="back-button" onClick={transitionPrev}>
+          <i class="fas fa-chevron-left"></i>戻る
+        </button>
+        <ol>
+          <ShowList/>
+        </ol>
     </>
   )
 }

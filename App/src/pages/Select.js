@@ -51,19 +51,25 @@ export default function Select(props) {
 
   const muzzleListElement = muzzleList.map(muzzle => {
     return (
-      <li key={muzzle} onClick={() => { setMuzzle(muzzle) }}>
-        {muzzle}
+      <li className="List-item" key={muzzle} onClick={() => { setMuzzle(muzzle) }}>
+        <p className="List-item_muzzle-word">
+          {muzzle}
+        </p>
       </li>
     )
   })
 
   return (
-    <div>
-      <a ><i class="fas fa-chevron-left"></i>TOP</a>
-      <ul>
-        {muzzleListElement}
-      </ul>
-
+    <div className="list-bg">
+      <button className="back-button">
+        <i class="fas fa-chevron-left"></i>TOP
+      </button>
+      <h1 className="App-body_rank-header">口癖を選ぶ</h1>
+      <div className="App-body_rank-list">
+        <ul className="List">
+          {muzzleListElement}
+        </ul>
+      </div>
       <input onChange={changeMuzzleText} value={muzzleText} type="text"/>
       <button onClick={pushUserSelectMuzzle}>
         Submit
