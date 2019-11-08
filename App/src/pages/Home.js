@@ -8,7 +8,7 @@ import STOP from '../assets/img/stop.png';
 import '../App.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setPage, addWords, PAGES, addSentences } from '../actions/actions' 
+import { setPage, addWords, PAGES, addSentences } from '../actions/actions'
 
 import Loader from 'react-loaders'
 
@@ -169,7 +169,7 @@ export default function Home() {
     )
 
     let buttonOrText = ( isRecording )? (
-        <div>
+        <div className="realtime_log">
             {latestText}
         </div>
     ):(
