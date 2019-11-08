@@ -21,7 +21,7 @@ export default function Detail() {
       return text !== '';
     });
 
-    
+
     result.forEach((text, index) => {
       if(text !== targetMuzzle){
         list.push(
@@ -49,20 +49,30 @@ export default function Detail() {
           sentencesShow.push(text);
         }
       }
-      return (sentencesShow.map((sentence, index) => <li key = {index}><MakeList sentence={sentence}/></li>));
+      return (sentencesShow.map((sentence, index) => <li className="detail_content-text" key = {index}><MakeList sentence={sentence}/></li>));
     }else{
       return <Fragment key={0}></Fragment>
     }
   };
 
   return (
-    <>
+    <div className="detail">
+      <div className="detail_header">
         <button className="back-button" onClick={transitionPrev}>
           <i class="fas fa-chevron-left"></i>戻る
         </button>
-        <ol>
-          <ShowList/>
-        </ol>
-    </>
+        <h2>会話のログ</h2>
+        <button className="more-button">
+            <i class="fas fa-redo-alt"></i>もう１回
+        </button>
+      </div>
+
+      <p>のログ</p>
+      <hr></hr>
+
+      <ol className="detail_content">
+        <ShowList/>
+      </ol>
+    </div>
   )
 }
