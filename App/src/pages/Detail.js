@@ -59,7 +59,7 @@ export default function Detail() {
     <div className="detail">
       <div className="detail_header">
         <button className="back-button" onClick={transitionPrev}>
-          <i class="fas fa-chevron-left"></i>戻る
+          <i className="fas fa-chevron-left"></i>戻る
         </button>
         <h2>会話のログ</h2>
         <button className="more-button">
