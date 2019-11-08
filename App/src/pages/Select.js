@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../App.scss';
 
 export default function Select(props) {
-  const [ muzzleList, setMuzzleList ] = useState(['めっちゃ','えーっと','ジェーピーハックス','ゆーて','やばい','無理','どうせ','でも']);
+  const [ muzzleList, setMuzzleList ] = useState(['めっちゃ','えーっと','やばい','無理','どうせ','でも','ジェーピーハックス']);
   const [ muzzleText,setMuzzleText ] = useState('');
 
   const histoy = useHistory();
@@ -22,7 +22,7 @@ export default function Select(props) {
         //localStorage.removeItem('muzzles');
         setMuzzleList(JSON.parse(localStorage.getItem('muzzles')));
       }else{
-        localStorage.setItem('muzzles', JSON.stringify(['めっちゃ','えーっと','ジェーピーハックス','ゆーて','やばい','無理','どうせ','でも']));
+        localStorage.setItem('muzzles', JSON.stringify(['めっちゃ','えーっと','やばい','無理','どうせ','でも','ジェーピーハックス]));
         localStorage.setItem('everUsed',"true");
         console.log("set muzzles");
       }
@@ -33,7 +33,7 @@ export default function Select(props) {
   },[]);
 
 
-  // 口癖をセットして画面遷移
+  // 口癖をセットして画面遷移zs
   function setMuzzle(text) {
     dispatch(setTargetMuzzle(text));
     histoy.push({pathname:'home'});
