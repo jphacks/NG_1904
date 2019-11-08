@@ -37,7 +37,7 @@ export default function Home() {
 
     useEffect(() => {
         console.log("Effect is Called");
-        if(envIsOkay&&userOS==="Android"){
+        if(envIsOkay&&userOS==="android"){
             window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
             let recognize = new window.SpeechRecognition();
             recognize.lang = "ja-JP";
@@ -139,12 +139,12 @@ export default function Home() {
             //OSの判定
             if(navigator.platform.indexOf("Win") !== -1){
                 userOS = "win";
-            }else if(navigator.platform.indexOf("Android") !== -1){
-                userOS = "android";
             }else if(navigator.platform.indexOf("Mac") !== -1){
                 userOS = "mac";
             }else{
-                window.alert("お使いのOSは対応しておりません．Android版のChromeをお使いください．");
+                //FixMe
+                userOS = "android";
+                //window.alert("お使いのOSは対応しておりません．Android版のChromeをお使いください．");
             }
             console.log("UserOS is : " + userOS);
 
