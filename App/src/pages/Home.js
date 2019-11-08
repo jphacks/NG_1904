@@ -17,7 +17,7 @@ import Loader from 'react-loaders'
 let staterecording = false;
 let envIsOkay = false;
 let userOS = "unknown";
-let counter = 0;
+// let counter = 0;
 
 export default function Home() {
     //const currentPage = useSelector(state => state.setPages.currentPage);
@@ -34,6 +34,27 @@ export default function Home() {
             display: isLoading ? "flex" : "none"
         }
     },[ isLoading ])
+
+    const latestTextJSX = useMemo(() => {
+        const regexp = new RegExp('(' + targetMuzzle + ')','g');
+        const texts = latestText.split(regexp);
+        const list = []
+        const result = texts.filter(function( text ) {
+            return text !== '';
+        });
+        result.map((text, index) => {
+            if(text !== targetMuzzle){
+                list.push(
+                    <span key={index}>{text}</span>
+                )
+            } else {
+                list.push(
+                    <span key={index} className="span-detail">{targetMuzzle}</span>
+                )
+            }
+        })
+            return list
+        },[latestText,targetMuzzle])
 
     useEffect(() => {
         console.log("Effect is Called");
@@ -61,7 +82,7 @@ export default function Home() {
                         if(userOS === "android") {
                             vibrate();
                         }else{
-                            counter++;
+                            // counter++;
                             spawnNotification(targetMuzzle,text);
                         }
                         memoryIndex += text.length - 1
@@ -149,7 +170,7 @@ export default function Home() {
             //解析後に値がない場合も遷移しない
             setIsLoading(false);
             if(wc.length!==0){
-                counter=0;
+                // counter=0;
                 history.push({pathname:'/result'});
             }
         }else{
@@ -160,7 +181,7 @@ export default function Home() {
     function transitionSelect() {
         setIsRecording(false);
         staterecording = false;
-        counter=0;
+        // counter=0;
         history.push({pathname:"select"});
     }
 
@@ -172,7 +193,7 @@ export default function Home() {
 
     let buttonOrText = ( isRecording )? (
         <div className="realtime_log">
-            {latestText}
+            {latestTextJSX}
         </div>
     ):(
         <button className="App-body_select" onClick={transitionSelect}>
@@ -183,7 +204,7 @@ export default function Home() {
     return (
         <div className="App-body">
             <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle}</span>」<br></br>を直そう</h1>
-            {recordButton}
+                { recordButton }
             <div className="loader-wraper" style={loadingStyle} >
                 <Loader className="loader-animation" type="pacman" loaded={isLoading}/>
             </div>
