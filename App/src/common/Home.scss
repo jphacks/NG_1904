@@ -4,7 +4,7 @@ button:focus {
 
 body {
     margin: 0;
-    max-height: 100%;
+    max-height: 100vh;
     color: $text-color;
 }
 
@@ -13,13 +13,13 @@ body {
 }
 
 .App-body {
-    min-height: 100vh;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     color: #4f4f4f;
-    padding-top: 2rem;
+    box-sizing: border-box;
 }
 
 .App-text {
@@ -64,7 +64,7 @@ body {
 }
 
 .App-body_select {
-    width: 80vw;
+    width: 340px;
     padding: 1.5rem;
     font-size: 1.25rem;
     font-weight: bold;
