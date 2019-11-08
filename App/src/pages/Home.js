@@ -141,9 +141,8 @@ export default function Home() {
             console.log("yagi   :" + count);
             */
             //解析後に値がない場合も遷移しない
+            setIsLoading(false);
             if(wc.length!==0){
-           setIsLoading(false);
-
                 history.push({pathname:'/result'})
             }
         }else{
