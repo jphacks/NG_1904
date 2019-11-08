@@ -1,7 +1,7 @@
 import React,{ useState, useEffect, useReducer, useMemo } from 'react';
 
 import { useHistory } from 'react-router-dom';
-import { vibrate, morphologicalAPIClient, wordCount } from '../common/util';/* morphologicalAnalysis */
+import { vibrate, morphologicalAPIClient, wordCount, spawnNotification } from '../common/util';/* morphologicalAnalysis */
 
 import MIC from '../assets/img/mic.png';
 import STOP from '../assets/img/stop.png';
@@ -37,7 +37,7 @@ export default function Home() {
 
     useEffect(() => {
         console.log("Effect is Called");
-        if(envIsOkay){
+        if(envIsOkay&&userOS==="Android"){
             window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
             let recognize = new window.SpeechRecognition();
             recognize.lang = "ja-JP";
@@ -93,7 +93,49 @@ export default function Home() {
                     clearInterval(intervalId);
                 }
             }
+        }else if(envIsOkay){
+            window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
+            let recognize = new window.SpeechRecognition();
+            recognize.lang = "ja-JP";
+
+            if(isRecording){
+                recognize.interimResults = true;
+                recognize.lang = "ja-JP";
+
+                let memoryIndex = 0;
+
+                recognize.onresult = (event) =>  {
+                    let text = event.results[event.results.length-1][0].transcript;
+                    console.log(text);
+                    if(event.results[event.results.length-1]["isFinal"]) {
+                        dispatcherReducer(text);
+                        console.log(text);
+                        memoryIndex = 0;
+                    }
+                    let index = text.indexOf(targetMuzzle,memoryIndex);
+                    if(index !== -1){
+                        console.log("vibrate");//PCでの確認用
+                        spawnNotification();
+                        memoryIndex += text.length - 1;
+                    }
+                }
+
+                recognize.onend = (event) => {
+                    if(staterecording){
+                        recognize.stop();
+                        recognize.start();
+                    }
+                }
+                recognize.start();
+            }
+
+            return () => {
+                if(recognize != null){
+                    recognize.abort();
+                }
+            }
         }else{
+            Notification.requestPermission();
             //OSの判定
             if(navigator.platform.indexOf("Win") !== -1){
                 userOS = "win";
@@ -123,6 +165,7 @@ export default function Home() {
     },[ isRecording, dispatcherReducer, targetMuzzle, dispatch ]);
 
     function recordStart() {
+
         //将来的にまとめたい
         setIsRecording(true);
         staterecording = true;
