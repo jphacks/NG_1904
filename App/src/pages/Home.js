@@ -59,8 +59,9 @@ export default function Home() {
                         console.log("vibrate");//PCでの確認用
                         if(userOS === "android") {
                             vibrate();
-                        } else {
-                            spawnNotification();
+                        }else{
+                            counter++;
+                            spawnNotification(counter);
                         }
                     }
                 }
