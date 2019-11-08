@@ -2,6 +2,7 @@ import React ,{ Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import '../App.scss';
+import { setData } from '../common/util';
 
 export default function Detail() {
   const history = useHistory();
@@ -55,6 +56,11 @@ export default function Detail() {
     }
   };
 
+  function onClickAgain () {
+    setData(targetMuzzle);
+    history.push({pathname:'/home'});
+}
+
   return (
     <div className="detail">
       <div className="detail_header">
@@ -62,12 +68,12 @@ export default function Detail() {
           <i class="fas fa-chevron-left"></i>戻る
         </button>
         <h2>会話のログ</h2>
-        <button className="more-button">
+        <button className="more-button" onClick={()=>onClickAgain()}>
             <i class="fas fa-redo-alt"></i>もう１回
         </button>
       </div>
 
-      <p>のログ</p>
+      <p>{targetMuzzle}のログ</p>
       <hr></hr>
 
       <ol className="detail_content">
