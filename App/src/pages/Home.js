@@ -9,7 +9,6 @@ import '../App.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setPage, addWords, PAGES, addSentences } from '../actions/actions' 
-import { clearInterval } from 'timers';
 
 import Loader from 'react-loaders'
 
@@ -37,106 +36,54 @@ export default function Home() {
 
     useEffect(() => {
         console.log("Effect is Called");
-        if(envIsOkay&&userOS==="android"){
+        if(envIsOkay){
             window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
             let recognize = new window.SpeechRecognition();
             recognize.lang = "ja-JP";
-
-            let intervalId;
-
+            recognize.interimResults = true;
             if(isRecording){
+                let memoryIndex = 0;
                 recognize.onresult = (event) =>  {
                     const last = event.results.length - 1;
                     const text = event.results[last][0].transcript;
-                    console.log(text);
+                    console.log(text,event.results[last]["isFinal"]);
 
-                    let index = text.indexOf(targetMuzzle);
-                    if(index !== -1){
-                        console.log("vibrate");//PCでの確認用
-                        vibrate();
+                    if(event.results[last]["isFinal"]) {
+                        dispatcherReducer(text);
+                        setLatestText(text)
+                        memoryIndex = 0
                     }
-                    dispatcherReducer(text);
-                    setLatestText(text);
+                    let index = text.indexOf(targetMuzzle);
+                    if(index !== -1) {
+                        console.log("vibrate");//PCでの確認用
+                        if(userOS === "android") {
+                            vibrate();
+                        } else {
+                            spawnNotification();
+                        }
+                    }
                 }
 
-                recognize.onspeechstart = (event) => {
-                    console.log("Speech Start");
-                    intervalId = setTimeout(() => {
-                        console.log("Speech stop")
-                        recognize.stop();
-                    },6000)
-                }
 
                 recognize.onend = (event) => {
                     console.log("onend")
-                    if(! intervalId) {
-                        clearInterval(intervalId);
-                    }
                     if(staterecording){
                         recognize.stop();
                         recognize.start();
                     }
                 }
-
+                console.log("start")
                 recognize.start();
-            } else {
-                if(intervalId !== undefined) {
-                    clearInterval(intervalId);
-                }
             }
-
             return () => {
                 if(recognize != null) {
                     recognize.abort();
                 };
-                if(! intervalId) {
-                    clearInterval(intervalId);
-                }
             }
-        }else if(envIsOkay){
-            window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
-            let recognize = new window.SpeechRecognition();
-            recognize.lang = "ja-JP";
-
-            if(isRecording){
-                recognize.interimResults = true;
-                recognize.lang = "ja-JP";
-
-                let memoryIndex = 0;
-
-                recognize.onresult = (event) =>  {
-                    let text = event.results[event.results.length-1][0].transcript;
-                    console.log(text);
-                    if(event.results[event.results.length-1]["isFinal"]) {
-                        dispatcherReducer(text);
-                        console.log(text);
-                        memoryIndex = 0;
-                    }
-                    let index = text.indexOf(targetMuzzle,memoryIndex);
-                    if(index !== -1){
-                        console.log("vibrate");//PCでの確認用
-                        spawnNotification();
-                        memoryIndex += text.length - 1;
-                    }
-                }
-
-                recognize.onend = (event) => {
-                    if(staterecording){
-                        recognize.stop();
-                        recognize.start();
-                    }
-                }
-                recognize.start();
-            }
-
-            return () => {
-                if(recognize != null){
-                    recognize.abort();
-                }
-            }
-        }else{
+        } else {
             Notification.requestPermission();
             //OSの判定
+            console.log(navigator.platform)
             if(navigator.platform.indexOf("Win") !== -1){
                 userOS = "win";
             }else if(navigator.platform.indexOf("Mac") !== -1){
