@@ -17,6 +17,7 @@ import Loader from 'react-loaders'
 let staterecording = false;
 let envIsOkay = false;
 let userOS = "unknown";
+let counter = 0;
 
 export default function Home() {
     //const currentPage = useSelector(state => state.setPages.currentPage);
@@ -146,7 +147,8 @@ export default function Home() {
             //解析後に値がない場合も遷移しない
             setIsLoading(false);
             if(wc.length!==0){
-                history.push({pathname:'/result'})
+                counter=0;
+                history.push({pathname:'/result'});
             }
         }else{
             dispatch(setPage(PAGES.RECORDS));
@@ -156,6 +158,7 @@ export default function Home() {
     function transitionSelect() {
         setIsRecording(false);
         staterecording = false;
+        counter=0;
         history.push({pathname:"select"});
     }
 
