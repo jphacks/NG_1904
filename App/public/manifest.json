@@ -4,7 +4,7 @@
   "start_url": "/?utm_source=web_app_manifest",
   "display": "standalone",
   "orientation": "natural",
-  "background_color": "#fff",
+  "background_color": "#FBC438",
   "color":"#fff",
   "theme_color": "#FBC438",
   "icons": [
