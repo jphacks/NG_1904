@@ -18,7 +18,8 @@ export function spawnNotification(muzzle,text) {
       body: text,
       icon: ICON,
   }
-  new Notification(`「${muzzle}」って言ったよ`,options);
+  let n = new Notification(`「${muzzle}」って言ったよ`,options);
+  window.setTimeout(n.close.bind(n), 2000); 
 }
 
 export function morphologicalAPIClient(text) {
