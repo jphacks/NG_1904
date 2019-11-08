@@ -17,6 +17,7 @@ import Loader from 'react-loaders'
 //いずれ解決する必要あり
 let staterecording = false;
 let envIsOkay = false;
+let userOS = "unknown";
 
 export default function Home() {
     //const currentPage = useSelector(state => state.setPages.currentPage);
@@ -93,7 +94,19 @@ export default function Home() {
                 }
             }
         }else{
-             //対応していないブラウザで警告を表示する
+            //OSの判定
+            if(navigator.platform.indexOf("Win") !== -1){
+                userOS = "win";
+            }else if(navigator.platform.indexOf("Android") !== -1){
+                userOS = "android";
+            }else if(navigator.platform.indexOf("Mac") !== -1){
+                userOS = "mac";
+            }else{
+                window.alert("お使いのOSは対応しておりません．Android版のChromeをお使いください．");
+            }
+            console.log("UserOS is : " + userOS);
+
+            //対応していないブラウザで警告を表示する
             //IOS版のChrome，safari,Android版のChrome，firefox，デスクトップ版のchrome,firefoxで動作確認済み
             dispatch(setPage(PAGES.RECORDS));
             if(targetMuzzle==="口癖"){
