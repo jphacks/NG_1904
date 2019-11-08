@@ -1,34 +1,62 @@
 import React from 'react';
-import { HashRouter, Route } from 'react-router-dom';
-import { AnimatedSwitch } from 'react-router-transition'
+import { HashRouter, Route, Switch,withRouter } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Home from './pages/Home';
 import Result from './pages/Result';
 import Select from './pages/Select';
 import Detail from './pages/Detail';
 import NotFound from './pages/NotFound';
+import './App.scss'
 
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux';
 
-const App = ({ store }) => (
+const App = ({ store }) => {
+  return (
   <Provider store={store}>
     <HashRouter>
-      <AnimatedSwitch 
-        atEnter={{ opacity: 0 }}
-        atLeave={{ opacity: 0 }}
-        atActive={{ opacity: 1 }}
-        className="switch-wrapper">
-          
-        <Route exact path="/" component={Home} />
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/select" component={Select}/>
-        <Route exact path="/result" component={Result}/>
-        <Route exact path="/detail" component={Detail}/>
-        <Route component={NotFound}/>
-      </AnimatedSwitch>
+      <Contents />
     </HashRouter>
   </Provider>
-);
+  )
+};
+
+const routes = [
+  { path:"/",Component:Home,transitionClass:"slide" },
+  { path:"/home",Component:Home,transitionClass:"slide" },
+  { path:"/select",Component:Select,transitionClass:"slideup" },
+  { path:"/result",Component:Result,transitionClass:"slide" },
+  { path:"/detail",Component:Detail,transitionClass:"slide" },
+]
+
+        // <Route component={NotFound}/>
+
+const Contents = withRouter(({ location }) => {
+  return (
+    <TransitionGroup>
+      <Switch location={location}>
+        {routes.map(({ path, Component,transitionClass }) => (
+          <Route key={path} exact path={path}>
+            {({ match }) => {
+              return (
+                <CSSTransition
+                  key={path}
+                  in={match != null}
+                  timeout={200}
+                  classNames={transitionClass}
+                >
+                  <Component />
+                </CSSTransition>
+              )
+            }}
+          </Route>              
+        ))}
+        <Route component={NotFound}/>
+      </Switch>
+  </TransitionGroup>
+  )
+});
+
 
 App.propTypes = {
   store: PropTypes.object.isRequired

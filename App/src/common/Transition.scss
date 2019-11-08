@@ -1,0 +1,14 @@
+.slideup-enter {
+  opacity: 0;
+}
+.slideup-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.slideup-exit {
+  opacity: 1;
+}
+.slideup-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
