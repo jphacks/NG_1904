@@ -1,3 +1,4 @@
+import ICON from '../assets/img/logo.png';
 // 形態素解析を行うためにAPIのエンドポイント
 // 実態はFirebase FunctionsをクッションにしてGooAPIを叩いている
 const MORPHOLOGICAL_API = ' https://us-central1-polished-zephyr-258013.cloudfunctions.net/doMorphological'
@@ -10,6 +11,14 @@ const POS_FILTER = POS_FILTER_MUST.concat(POS_FILTER_MAYBE);
 
 export function vibrate() {
   window.navigator.vibrate([500, 100, 100,50,100]);
+}
+
+export function spawnNotification() {
+  var options = {
+      body: "あなたは口癖を言いました．",
+      icon: ICON
+  }
+  new Notification("口癖検知",options);
 }
 
 export function morphologicalAPIClient(text) {

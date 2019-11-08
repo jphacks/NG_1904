@@ -44,9 +44,11 @@ export default function Select(props) {
   }
 
   function pushUserSelectMuzzle() {
-    setData(muzzleText);
-    setMuzzleList([...muzzleList,muzzleText]);
-    setMuzzleText('');
+    if(muzzleText!==""){
+      setData(muzzleText);
+      setMuzzleList([...muzzleList,muzzleText]);
+      setMuzzleText('');
+    }
   }
 
   function goBackHome () {
