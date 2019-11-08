@@ -65,7 +65,6 @@ export default function Home() {
                     }
                 }
 
-
                 recognize.onend = (event) => {
                     console.log("onend")
                     if(staterecording){
@@ -168,19 +167,24 @@ export default function Home() {
         <button onClick={recordStart} className="App-body_reco-start"><img src={MIC} alt="マイク"/>会話を録音</button>
     )
 
+    let buttonOrText = ( isRecording )? (
+        <div>
+            {latestText}
+        </div>
+    ):(
+        <button className="App-body_select" onClick={transitionSelect}>
+            口癖を選択する
+        </button>
+    )
+
     return (
         <div className="App-body">
-            <div>
-                {latestText}
-            </div>
             <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle}</span>」<br></br>を直そう</h1>
             {recordButton}
             <div className="loader-wraper" style={loadingStyle} >
                 <Loader className="loader-animation" type="pacman" loaded={isLoading}/>
             </div>
-            <button className="App-body_select" onClick={transitionSelect}>
-                口癖を選択する
-            </button>
+            {buttonOrText}
         </div>
     );
 }
