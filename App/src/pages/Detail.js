@@ -73,7 +73,7 @@ export default function Detail() {
         </button>
       </div>
 
-      <p>{targetMuzzle}のログ</p>
+      <p>「{targetMuzzle}」のログ</p>
       <hr></hr>
 
       <ol className="detail_content">
