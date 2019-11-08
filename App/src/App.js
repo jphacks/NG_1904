@@ -24,12 +24,10 @@ const App = ({ store }) => {
 const routes = [
   { path:"/",Component:Home,transitionClass:"slide" },
   { path:"/home",Component:Home,transitionClass:"slide" },
-  { path:"/select",Component:Select,transitionClass:"slideup" },
+  { path:"/select",Component:Select,transitionClass:"slide" },
   { path:"/result",Component:Result,transitionClass:"slide" },
   { path:"/detail",Component:Detail,transitionClass:"slide" },
 ]
-
-        // <Route component={NotFound}/>
 
 const Contents = withRouter(({ location }) => {
   return (
@@ -42,7 +40,7 @@ const Contents = withRouter(({ location }) => {
                 <CSSTransition
                   key={path}
                   in={match != null}
-                  timeout={200}
+                  timeout={400}
                   classNames={transitionClass}
                 >
                   <Component />
