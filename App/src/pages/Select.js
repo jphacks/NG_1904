@@ -22,7 +22,7 @@ export default function Select(props) {
         //localStorage.removeItem('muzzles');
         setMuzzleList(JSON.parse(localStorage.getItem('muzzles')));
       }else{
-        localStorage.setItem('muzzles', JSON.stringify(['めっちゃ','えーっと','やばい','無理','どうせ','でも','ジェーピーハックス]));
+        localStorage.setItem('muzzles', JSON.stringify(['めっちゃ','えーっと','やばい','無理','どうせ','でも','ジェーピーハックス']));
         localStorage.setItem('everUsed',"true");
         console.log("set muzzles");
       }
