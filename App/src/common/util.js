@@ -13,12 +13,12 @@ export function vibrate() {
   window.navigator.vibrate([500, 100, 100,50,100]);
 }
 
-export function spawnNotification(counter) {
+export function spawnNotification(muzzle,text) {
   var options = {
-      body: counter + "回口癖を言いました．",
-      icon: ICON
+      body: text,
+      icon: ICON,
   }
-  new Notification("口癖検知",options);
+  new Notification(`「${muzzle}」 ` + `って言ったよ`,options);
 }
 
 export function morphologicalAPIClient(text) {

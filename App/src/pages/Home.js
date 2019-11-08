@@ -54,15 +54,17 @@ export default function Home() {
                         setLatestText(text)
                         memoryIndex = 0
                     }
-                    let index = text.indexOf(targetMuzzle);
-                    if(index !== -1) {
+                    
+                    let index = text.indexOf(targetMuzzle,memoryIndex);
+                    if( index !== -1 ) {
                         console.log("vibrate");//PCでの確認用
                         if(userOS === "android") {
                             vibrate();
                         }else{
                             counter++;
-                            spawnNotification(counter);
+                            spawnNotification(targetMuzzle,text);
                         }
+                        memoryIndex += text.length - 1
                     }
                 }
 
