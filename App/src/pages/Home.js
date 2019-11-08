@@ -52,6 +52,7 @@ export default function Home() {
                     <span key={index} className="span-detail">{targetMuzzle}</span>
                 )
             }
+            return
         })
             return list
         },[latestText,targetMuzzle])
