@@ -17,6 +17,7 @@ export function spawnNotification(muzzle,text) {
   var options = {
       body: text,
       icon: ICON,
+      tag: 'tag'
   }
   let n = new Notification(`「${muzzle}」って言ったよ`,options);
   window.setTimeout(n.close.bind(n), 2000); 
