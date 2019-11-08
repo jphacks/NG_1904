@@ -16,6 +16,7 @@ import Loader from 'react-loaders'
 //stateで管理すると2回目から録音ボタンを押しても何も始まらなくなるので設定
 //いずれ解決する必要あり
 let staterecording = false;
+let envIsOkay = false;
 
 export default function Home() {
     //const currentPage = useSelector(state => state.setPages.currentPage);
@@ -35,76 +36,78 @@ export default function Home() {
 
     useEffect(() => {
         console.log("Effect is Called");
-        window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
-        let recognize = new window.SpeechRecognition();
-        recognize.lang = "ja-JP";
+        if(envIsOkay){
+            window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
+            let recognize = new window.SpeechRecognition();
+            recognize.lang = "ja-JP";
 
-        let intervalId;
+            let intervalId;
 
-        if(isRecording){
-            recognize.onresult = (event) =>  {
-                const last = event.results.length - 1;
-                const text = event.results[last][0].transcript;
-                console.log(text);
+            if(isRecording){
+                recognize.onresult = (event) =>  {
+                    const last = event.results.length - 1;
+                    const text = event.results[last][0].transcript;
+                    console.log(text);
 
-                let index = text.indexOf(targetMuzzle);
-                if(index !== -1){
-                    console.log("vibrate");//PCでの確認用
-                    vibrate();
+                    let index = text.indexOf(targetMuzzle);
+                    if(index !== -1){
+                        console.log("vibrate");//PCでの確認用
+                        vibrate();
+                    }
+                    dispatcherReducer(text);
+                    setLatestText(text);
                 }
-                dispatcherReducer(text);
-                setLatestText(text);
+
+                recognize.onspeechstart = (event) => {
+                    console.log("Speech Start");
+                    intervalId = setTimeout(() => {
+                        console.log("Speech stop")
+                        recognize.stop();
+                    },6000)
+                }
+
+                recognize.onend = (event) => {
+                    console.log("onend")
+                    if(! intervalId) {
+                        clearInterval(intervalId);
+                    }
+                    if(staterecording){
+                        recognize.stop();
+                        recognize.start();
+                    }
+                }
+
+                recognize.start();
+            } else {
+                if(intervalId !== undefined) {
+                    clearInterval(intervalId);
+                }
             }
 
-            recognize.onspeechstart = (event) => {
-                console.log("Speech Start");
-                intervalId = setTimeout(() => {
-                    console.log("Speech stop")
-                    recognize.stop();
-                },6000)
-            }
-
-            recognize.onend = (event) => {
-                console.log("onend")
+            return () => {
+                if(recognize != null) {
+                    recognize.abort();
+                };
                 if(! intervalId) {
                     clearInterval(intervalId);
                 }
-                if(staterecording){
-                    recognize.stop();
-                    recognize.start();
+            }
+        }else{
+             //対応していないブラウザで警告を表示する
+            //IOS版のChrome，safari,Android版のChrome，firefox，デスクトップ版のchrome,firefoxで動作確認済み
+            dispatch(setPage(PAGES.RECORDS));
+            if(targetMuzzle==="口癖"){
+                const agent = window.navigator.userAgent.toLowerCase();
+                const chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1);
+                if(!chrome){
+                    window.alert("お使いのブラウザは対応しておりません．Android版のChromeをお使いください．");
+                }else{
+                    envIsOkay=true;
                 }
-            }
-
-            recognize.start();
-        } else {
-            if(intervalId !== undefined) {
-                clearInterval(intervalId);
-            }
-        }
-
-        return () => {
-            if(recognize != null) {
-                recognize.abort();
-            };
-            if(! intervalId) {
-                clearInterval(intervalId);
             }
         }
         //targetMuzzleは更新されないので依存関係に含めていい（はず）
-    },[ isRecording, dispatcherReducer, targetMuzzle ]);
-
-    useEffect(() => {
-        //対応していないブラウザで警告を表示する
-        //IOS版のChrome，safari,Android版のChrome，firefox，デスクトップ版のchrome,firefoxで動作確認済み
-        dispatch(setPage(PAGES.RECORDS));
-        if(targetMuzzle==="口癖"){
-            const agent = window.navigator.userAgent.toLowerCase();
-            const chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1);
-            if(!chrome){
-                window.alert("お使いのブラウザは対応しておりません．Android版のChromeをお使いください．");
-            }
-        }
-    },[ targetMuzzle, dispatch ])
+    },[ isRecording, dispatcherReducer, targetMuzzle, dispatch ]);
 
     function recordStart() {
         //将来的にまとめたい
