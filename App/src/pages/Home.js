@@ -38,23 +38,20 @@ export default function Home() {
     const latestTextJSX = useMemo(() => {
         const regexp = new RegExp('(' + targetMuzzle + ')','g');
         const texts = latestText.split(regexp);
-        const list = []
         const result = texts.filter(function( text ) {
             return text !== '';
         });
-        result.map((text, index) => {
+        return result.map((text, index) => {
             if(text !== targetMuzzle){
-                list.push(
+                return (
                     <span key={index}>{text}</span>
                 )
             } else {
-                list.push(
+                return (
                     <span key={index} className="span-detail">{targetMuzzle}</span>
                 )
             }
-            return
         })
-            return list
         },[latestText,targetMuzzle])
 
     useEffect(() => {
