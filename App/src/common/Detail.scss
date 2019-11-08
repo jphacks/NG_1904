@@ -19,6 +19,11 @@
     padding: 0 1rem;
 }
 
+.detail_header button{
+    background: none;
+    border: none;
+}
+
 .detail_header h2 {
     color: white;
 }
@@ -30,7 +35,7 @@
     margin: 0;
 }
 
-.back-button i {
+.fontawesome {
     margin-right: 0.5rem;
 }
 

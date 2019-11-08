@@ -70,7 +70,7 @@ export default function Select(props) {
   return (
     <div className="list-bg">
       <button className="back-button" onClick={() => goBackHome()}>
-        <FontAwesomeIcon icon={['fas', 'chevron-left']} />TOP
+        <FontAwesomeIcon className="fontawesome" icon={['fas', 'chevron-left']} />TOP
       </button>
       <h1 className="App-body_rank-header select-header">口癖<span>を</span>選ぼう</h1>
       <div className="App-body_rank-list">
