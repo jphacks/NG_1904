@@ -1,6 +1,7 @@
 import React ,{ Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../App.scss';
 
 export default function Detail() {
@@ -59,7 +60,7 @@ export default function Detail() {
     <div className="detail">
       <div className="detail_header">
         <button className="back-button" onClick={transitionPrev}>
-          <i class="fas fa-chevron-left"></i>戻る
+          <FontAwesomeIcon icon={['fas', 'chevron-left']} />戻る
         </button>
         <h2>会話のログ</h2>
         <button className="more-button">

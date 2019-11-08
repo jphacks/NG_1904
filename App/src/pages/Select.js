@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setTargetMuzzle } from '../actions/actions';
 import { setData, storageAvailable } from '../common/util';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../App.scss';
 
 export default function Select(props) {
@@ -69,7 +70,7 @@ export default function Select(props) {
   return (
     <div className="list-bg">
       <button className="back-button" onClick={() => goBackHome()}>
-        <i class="fas fa-chevron-left"></i>TOP
+        <FontAwesomeIcon icon={['fas', 'chevron-left']} />TOP
       </button>
       <h1 className="App-body_rank-header select-header">口癖<span>を</span>選ぼう</h1>
       <div className="App-body_rank-list">
