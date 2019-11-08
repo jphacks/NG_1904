@@ -13,9 +13,9 @@ export function vibrate() {
   window.navigator.vibrate([500, 100, 100,50,100]);
 }
 
-export function spawnNotification() {
+export function spawnNotification(counter) {
   var options = {
-      body: "あなたは口癖を言いました．",
+      body: counter + "回口癖を言いました．",
       icon: ICON
   }
   new Notification("口癖検知",options);
