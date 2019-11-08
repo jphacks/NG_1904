@@ -1,7 +1,7 @@
 import React,{ useState, useEffect, useReducer, useMemo } from 'react';
 
 import { useHistory } from 'react-router-dom';
-import { vibrate, morphologicalAPIClient, wordCount } from '../common/util';/* morphologicalAnalysis */
+import { vibrate, morphologicalAPIClient, wordCount, spawnNotification } from '../common/util';/* morphologicalAnalysis */
 
 import MIC from '../assets/img/mic.png';
 import STOP from '../assets/img/stop.png';
@@ -17,6 +17,7 @@ import Loader from 'react-loaders'
 //いずれ解決する必要あり
 let staterecording = false;
 let envIsOkay = false;
+let userOS = "unknown";
 
 export default function Home() {
     //const currentPage = useSelector(state => state.setPages.currentPage);
@@ -36,7 +37,7 @@ export default function Home() {
 
     useEffect(() => {
         console.log("Effect is Called");
-        if(envIsOkay){
+        if(envIsOkay&&userOS==="Android"){
             window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
             let recognize = new window.SpeechRecognition();
             recognize.lang = "ja-JP";
@@ -92,8 +93,62 @@ export default function Home() {
                     clearInterval(intervalId);
                 }
             }
+        }else if(envIsOkay){
+            window.SpeechRecognition =  window.webkitSpeechRecognition || window.SpeechRecognition;
+            let recognize = new window.SpeechRecognition();
+            recognize.lang = "ja-JP";
+
+            if(isRecording){
+                recognize.interimResults = true;
+                recognize.lang = "ja-JP";
+
+                let memoryIndex = 0;
+
+                recognize.onresult = (event) =>  {
+                    let text = event.results[event.results.length-1][0].transcript;
+                    console.log(text);
+                    if(event.results[event.results.length-1]["isFinal"]) {
+                        dispatcherReducer(text);
+                        console.log(text);
+                        memoryIndex = 0;
+                    }
+                    let index = text.indexOf(targetMuzzle,memoryIndex);
+                    if(index !== -1){
+                        console.log("vibrate");//PCでの確認用
+                        spawnNotification();
+                        memoryIndex += text.length - 1;
+                    }
+                }
+
+                recognize.onend = (event) => {
+                    if(staterecording){
+                        recognize.stop();
+                        recognize.start();
+                    }
+                }
+                recognize.start();
+            }
+
+            return () => {
+                if(recognize != null){
+                    recognize.abort();
+                }
+            }
         }else{
-             //対応していないブラウザで警告を表示する
+            Notification.requestPermission();
+            //OSの判定
+            if(navigator.platform.indexOf("Win") !== -1){
+                userOS = "win";
+            }else if(navigator.platform.indexOf("Android") !== -1){
+                userOS = "android";
+            }else if(navigator.platform.indexOf("Mac") !== -1){
+                userOS = "mac";
+            }else{
+                window.alert("お使いのOSは対応しておりません．Android版のChromeをお使いください．");
+            }
+            console.log("UserOS is : " + userOS);
+
+            //対応していないブラウザで警告を表示する
             //IOS版のChrome，safari,Android版のChrome，firefox，デスクトップ版のchrome,firefoxで動作確認済み
             dispatch(setPage(PAGES.RECORDS));
             if(targetMuzzle==="口癖"){
@@ -110,6 +165,7 @@ export default function Home() {
     },[ isRecording, dispatcherReducer, targetMuzzle, dispatch ]);
 
     function recordStart() {
+
         //将来的にまとめたい
         setIsRecording(true);
         staterecording = true;
@@ -141,9 +197,8 @@ export default function Home() {
             console.log("yagi   :" + count);
             */
             //解析後に値がない場合も遷移しない
+            setIsLoading(false);
             if(wc.length!==0){
-           setIsLoading(false);
-
                 history.push({pathname:'/result'})
             }
         }else{
