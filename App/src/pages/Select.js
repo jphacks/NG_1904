@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../App.scss';
 
 export default function Select(props) {
-  const [ muzzleList, setMuzzleList ] = useState(['めっちゃ','えーっと','やばい','無理','どうせ','でも','ジェーピーハックス']);
+  const [ muzzleList, setMuzzleList ] = useState(['めっちゃ','えーっと','やばい','無理','どうせ','でも']);
   const [ muzzleText,setMuzzleText ] = useState('');
 
   const histoy = useHistory();
@@ -22,7 +22,7 @@ export default function Select(props) {
         //localStorage.removeItem('muzzles');
         setMuzzleList(JSON.parse(localStorage.getItem('muzzles')));
       }else{
-        localStorage.setItem('muzzles', JSON.stringify(['めっちゃ','えーっと','やばい','無理','どうせ','でも','ジェーピーハックス']));
+        localStorage.setItem('muzzles', JSON.stringify(['めっちゃ','えーっと','やばい','無理','どうせ','でも']));
         localStorage.setItem('everUsed',"true");
         console.log("set muzzles");
       }
