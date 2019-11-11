@@ -1,4 +1,9 @@
 # Mousehat
+![prize1](https://img.shields.io/badge/JPHacks2019-Innovator認定-yellow)
+
+![prize2](https://img.shields.io/badge/JPHacks2019-NTTレゾナント賞-red)
+![prize3](https://img.shields.io/badge/JPHacks2019-日本ビジネスシステムズ賞-informational)
+![prize4](https://img.shields.io/badge/JPHacks2019-Base賞-blueviolet)
 
 [![Product Name](image.png)](https://vimeo.com/367526557)
 ＊このデモでは端末から音がなっているように聞こえますがデバイスが振動（バイブレーション）していることを強調するために，あえて端末を金属板に載せているために発生している音です．
@@ -14,7 +19,7 @@
 
 #### Webアプリケーション  
 ブラウザからで使えるので手軽に利用できます．  
-対応ブラウザ：Android版Chrome，~~Desktop版Chrome~~ 
+対応ブラウザ：Android版Chrome，Desktop版Chrome 
 
 #### 仕様の説明＆使い方
 以下の画面がAndroid端末での遷移画面になります．まず，Home画面に遷移します．
