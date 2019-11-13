@@ -13,4 +13,7 @@ library.add(fab, fas, far);
 
 const store = createStore(mousehatApp);
 
+// disable the production enviroment analytics
+process.env.NODE_ENV === "development" && (window.gtagPageview = (path) => { /*console.log("pageview:", path);*/ });
+
 ReactDOM.render(<App store={store} />, document.getElementById('root'));
