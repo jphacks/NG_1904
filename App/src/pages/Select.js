@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setTargetMuzzle } from '../actions/actions';
 import { setData, storageAvailable } from '../common/util';
@@ -12,7 +12,13 @@ export default function Select(props) {
   const [ muzzleText,setMuzzleText ] = useState('');
 
   const histoy = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    window.gtagPageview(location.pathname);
+  },[ location.pathname ])
+
 
   useEffect(() => {
     if (storageAvailable('localStorage')) {

@@ -1,5 +1,5 @@
 import React,{ useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import TALK from '../assets/img/talk.png';
 import '../App.scss';
@@ -9,7 +9,12 @@ import { setPage, PAGES } from '../actions/actions';
 
 export default function NotFound() {
     const history = useHistory();
+    const location = useLocation();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        window.gtagPageview(location.pathname);
+    },[ location.pathname ])
 
     useEffect(() => {
         dispatch(setPage(PAGES.NOTFOUND));

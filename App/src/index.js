@@ -12,5 +12,6 @@ import mousehatApp from './reducers/reducers'
 library.add(fab, fas, far);
 
 const store = createStore(mousehatApp);
+process.env.NODE_ENV === "development" && (window.gtagPageview = (path) => { console.log("pageview:", path); });
 
 ReactDOM.render(<App store={store} />, document.getElementById('root'));

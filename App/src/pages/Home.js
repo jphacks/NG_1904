@@ -1,6 +1,6 @@
 import React,{ useState, useEffect, useReducer, useMemo } from 'react';
 
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { vibrate, morphologicalAPIClient, wordCount, spawnNotification } from '../common/util';/* morphologicalAnalysis */
 
 import MIC from '../assets/img/mic.png';
@@ -28,6 +28,7 @@ export default function Home() {
     const [ data, dispatcherReducer ] = useReducer((prevData,text) => {return [...prevData,text];}, []);
     const [ latestText,setLatestText ] = useState("");
     const history = useHistory();
+    const location = useLocation();
 
     const loadingStyle = useMemo(() => {
         return {
@@ -53,6 +54,10 @@ export default function Home() {
             }
         })
         },[latestText,targetMuzzle])
+
+    useEffect(() => {
+        window.gtagPageview(location.pathname);
+    },[ location.pathname ])
 
     useEffect(() => {
         console.log("Effect is Called");
