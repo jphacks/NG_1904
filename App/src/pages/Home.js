@@ -73,10 +73,10 @@ export default function Home() {
                     const text = event.results[last][0].transcript;
                     console.log(text,event.results[last]["isFinal"]);
 
+                    setLatestText(text);
                     if(event.results[last]["isFinal"]) {
                         dispatcherReducer(text);
-                        setLatestText(text)
-                        memoryIndex = 0
+                        memoryIndex = 0;
                     }
                     
                     let index = text.indexOf(targetMuzzle,memoryIndex);
