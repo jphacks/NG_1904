@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Switch,withRouter } from 'react-router-dom';
+import { HashRouter, Route, Switch, withRouter } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Home from './pages/Home';
 import Result from './pages/Result';

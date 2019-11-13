@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { setData } from '../common/util';
 
 import LEFT from '../assets/img/left-accessory.png';
@@ -19,8 +19,13 @@ export default function Result() {
     const countedWords = useSelector(state => state.addContent.words);
     const dispatch = useDispatch();
     const history = useHistory();
+    const location = useLocation();
 
     const images = [ ONE, TWO, THREE, FOUR, FIVE ];
+
+    useEffect(() => {
+        window.gtagPageview(location.pathname);
+    },[ location.pathname ])
 
     useEffect(() => {
         dispatch(setPage(PAGES.RESULTS));

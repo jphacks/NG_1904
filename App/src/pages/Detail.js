@@ -1,5 +1,5 @@
-import React ,{ Fragment } from 'react';
-import { useHistory } from 'react-router-dom';
+import React ,{ Fragment, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../App.scss';
@@ -7,8 +7,14 @@ import { setData } from '../common/util';
 
 export default function Detail() {
   const history = useHistory();
+  const location = useLocation();
   const sentences = useSelector((state) => state.addContent.sentences);
   const targetMuzzle = useSelector((state) => state.setMuzzle.targetMuzzle);
+
+  useEffect(() => {
+    window.gtagPageview(location.pathname);
+  },[ location.pathname ])
+
 
   function transitionPrev() {
     history.goBack();
