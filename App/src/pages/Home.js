@@ -129,7 +129,7 @@ export default function Home() {
                 const agent = window.navigator.userAgent.toLowerCase();
                 const chrome = (agent.indexOf('chrome') !== -1) && (agent.indexOf('edge') === -1)  && (agent.indexOf('opr') === -1);
                 if(!chrome){
-                    window.alert("お使いのブラウザは対応しておりません．Android版のChromeをお使いください．");
+                    window.alert("お使いのブラウザは対応しておりません．Desktop版もしくはAndroid版のChromeをお使いください．");
                 }else{
                     envIsOkay=true;
                 }
