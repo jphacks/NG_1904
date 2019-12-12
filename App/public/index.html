@@ -24,7 +24,10 @@
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             function gtagPageview(pathname){
-                gtag('config', 'G-VT5K6TDQP2', {'page_path': pathname});
+                gtag('config', 'G-VT5K6TDQP2', {
+                    'page_title': pathname,
+                    'page_path': pathname
+                });
                 console.log(pathname + ":success gtag");
             }
             gtag('js', new Date());
