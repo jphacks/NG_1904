@@ -6,3 +6,4 @@ build
 .env
 
 .firebase
+.DS_Store

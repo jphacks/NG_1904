@@ -41,7 +41,7 @@ export default function Result() {
         // イベントバブリングを抑止
         e.stopPropagation();
         dispatch(setTargetMuzzle(text));
-        history.push({pathname:'/detail'});
+        history.push({pathname:'/log'});
     }
 
     let listItems = ( typeof countedWords === "undefined" || countedWords === "" )? (

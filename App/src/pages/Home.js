@@ -199,15 +199,19 @@ export default function Home() {
             {latestTextJSX}
         </div>
     ):(
-        <button className="App-body_select" onClick={transitionSelect}>
-            口癖を選択する
-        </button>
+        <p style={{fontSize: "large",fontWeight: "bold",marginTop: 30 + "px"}}>タップして<span style={{color: "#FBC337"}}>録音を開始！</span></p>
+    )
+
+    let titleOrText = ( !isRecording )? (
+        <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle}</span>」<br></br>を直そう</h1>
+    ):(
+        <h1 className="App-body_reco-header">録音中</h1>
     )
 
     return (
         <div className="App-body">
-            <h1 className="App-body_reco-header">「<span className="App-body_reco-header-muzzle">{targetMuzzle}</span>」<br></br>を直そう</h1>
-                { recordButton }
+            {titleOrText}
+            {recordButton}
             <div className="loader-wraper" style={loadingStyle} >
                 <Loader className="loader-animation" type="pacman" loaded={isLoading}/>
             </div>

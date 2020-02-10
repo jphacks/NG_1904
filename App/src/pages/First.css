@@ -1,0 +1,64 @@
+.main {
+  text-align: center;
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.button-parent {
+  background-color: white;
+  height: 30%;
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 80;
+
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.button1, .button2{
+  background: #FBC337 ;
+  width: 70%;
+  height: 20%;
+  border-radius: 35px;
+
+  color: white;
+  font-weight: bold;
+  font-size: calc(15px + 2vmin);
+}
+
+.button1:focus, .button2:focus{
+  outline: none;
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+
+  margin: 15% 0 2% 0; 
+  font-weight: bold;
+  color: grey;
+}
+
+.subtitle:before, .subtitle:after {
+  border-top: 3px solid grey;
+  flex-grow: 1;
+  content: "";
+  width: 1rem;
+}
+
+.subtitle:before {
+  margin-right: 1rem;
+}
+
+.subtitle:after {
+  margin-left: 1rem;
+}

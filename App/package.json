@@ -2,6 +2,7 @@
   "name": "mousehat",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://yagijin.github.io/NG_1904/",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
@@ -31,9 +32,10 @@
     "react-dom": "^16.10.2",
     "react-loaders": "^3.0.1",
     "react-redux": "^7.1.1",
+    "react-responsive-carousel": "^3.1.51",
     "react-router-dom": "^5.1.2",
     "react-router-transition": "^2.0.0",
-    "react-scripts": "^3.2.0",
+    "react-scripts": "^3.3.1",
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.4",
     "typescript": "^3.6.4"
@@ -52,7 +54,7 @@
   },
   "devDependencies": {
     "firebase-tools": "^7.6.2",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "tsc": "^1.20150623.0"
   }
 }

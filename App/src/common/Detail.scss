@@ -40,11 +40,19 @@
 }
 
 .more-button {
-    display: flex;
-    flex-direction: column;
-    color: white;
-    letter-spacing: -0.125rem;
+    position: absolute;
+    bottom: 0;
+
+    width: 90%;
+    padding: 1.25rem 1.5rem;
+    font-size: 1.25rem;
     font-weight: bold;
+    background-color: $main-color;
+    color: white;
+    border-style: none;
+    border-radius: 6rem;
+    /*ここがうまく設定できない*/
+    margin: 2em 1em;
 }
 
 .more-button i {
